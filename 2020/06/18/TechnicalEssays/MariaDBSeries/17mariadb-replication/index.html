@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>（十七）MariaDB的复制(replication)简介 | 知己识人</title><meta name="description" content="（十七）MariaDB的复制(replication)简介"><meta name="keywords" content="mariadb,数据库,db,运维"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="（十七）MariaDB的复制(replication)简介"><meta name="twitter:description" content="（十七）MariaDB的复制(replication)简介"><meta name="twitter:image" content="http://swmlee.com/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png"><meta property="og:type" content="article"><meta property="og:title" content="（十七）MariaDB的复制(replication)简介"><meta property="og:url" content="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/17mariadb-replication/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="（十七）MariaDB的复制(replication)简介"><meta property="og:image" content="http://swmlee.com/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/17mariadb-replication/"><link rel="prev" title="（十八）MariaDB简单的复制(replication)使用示例" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/"><link rel="next" title="（十六）MariaDB部分内置JSON函数简介" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"http://swmlee.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'true',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">141</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#repelication-基础简介"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">repelication 基础简介</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#replication-概述"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">replication 概述</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#replication-用途"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">replication 用途</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#通用的复制设定-Common-Replication-Setups"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">通用的复制设定 Common Replication Setups</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#标准复制-Standard-Replication"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">标准复制 Standard Replication</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#环状复制-Ring-Replication"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">环状复制 Ring Replication</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#星状复制-Star-Replication"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">星状复制 Star Replication</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#多源复制-Multi-Source-Replication"><span class="toc_mobile_items-number">1.3.4.</span> <span class="toc_mobile_items-text">多源复制 Multi-Source Replication</span></a></li></ol></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#repelication-基础简介"><span class="toc-number">1.</span> <span class="toc-text">repelication 基础简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#replication-概述"><span class="toc-number">1.1.</span> <span class="toc-text">replication 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#replication-用途"><span class="toc-number">1.2.</span> <span class="toc-text">replication 用途</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通用的复制设定-Common-Replication-Setups"><span class="toc-number">1.3.</span> <span class="toc-text">通用的复制设定 Common Replication Setups</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标准复制-Standard-Replication"><span class="toc-number">1.3.1.</span> <span class="toc-text">标准复制 Standard Replication</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#环状复制-Ring-Replication"><span class="toc-number">1.3.2.</span> <span class="toc-text">环状复制 Ring Replication</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#星状复制-Star-Replication"><span class="toc-number">1.3.3.</span> <span class="toc-text">星状复制 Star Replication</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多源复制-Multi-Source-Replication"><span class="toc-number">1.3.4.</span> <span class="toc-text">多源复制 Multi-Source Replication</span></a></li></ol></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png)"><div id="post-info"><div id="post-title"><div class="posttitle">（十七）MariaDB的复制(replication)简介</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-18 21:07:16<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-18 21:54:48</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/">技术文章</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/MariaDB系列/">MariaDB系列</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">848</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 2 分钟</span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><p>注意区分：在一开始的时候，有讲到备份和还原，有详细提到两个命令 mysqldump 和 mariabackup，用于<strong>备份(Backing Up)</strong>。</p>
+<h1 id="repelication-基础简介"><a href="#repelication-基础简介" class="headerlink" title="repelication 基础简介"></a>repelication 基础简介</h1><h2 id="replication-概述"><a href="#replication-概述" class="headerlink" title="replication 概述"></a>replication 概述</h2><p><strong>复制(Replication)是一个允许一个或多个主(master)服务器的内容镜像复制到一个或多个从(slave)服务器上的特性。</strong></p>
+<blockquote>
+<p>可以控制要复制的数据：所有数据库、一个或多个数据库或数据库中的表。</p>
+</blockquote>
+<blockquote>
+<p>复制中使用的主要机制是二进制日志(binary log)。如果启用了二进制日志记录，则数据库的所有更新（数据操作和数据定义）都将作为 binlog 事件写入二进制日志。从服务器(Slaves)从每个主机(each master)读取二进制日志，以便访问要复制的数据。中继日志(relay log)是在从属服务器上创建的，使用与二进制日志相同的格式，用于执行复制。旧的中继日志文件将在不再需要时被删除。</p>
+</blockquote>
+<blockquote>
+<p>从服务器保持轨迹（track）在主服务器的 binlog 中记录的最后一次应用到从服务器的事件的位置。这就可以允许从服务器重新连接，并从临时停止后中断的位置恢复复制操作。它还允许从服务器断开连接、克隆，然后从同一主服务器恢复新的从服务器复制。</p>
+<p>主从服务器之间不需要持续通讯(constant communication)。服务器脱机或断开与网络的连接情况很常见，但当它们重连时，复制将在中断的地方继续执行。</p>
+</blockquote>
+<h2 id="replication-用途"><a href="#replication-用途" class="headerlink" title="replication 用途"></a>replication 用途</h2><blockquote>
+<p><strong>可扩展性(Scalability)</strong>。通过拥有一个或多个从属服务器，可以将读取分散到多个服务器上，从而减少主服务器上的负载。对于高读、低写环境，最常见的情况是有一个主节点，所有的写操作都在其中进行，复制到多个从节点，这些从节点处理大部分的读操作。</p>
+<p><strong>数据分析(Data analysis)</strong>。分析数据可能会对主服务器产生太大的影响，这同样可以在从属服务器上处理，而主服务器继续不受额外负载的影响。</p>
+<p><strong>备援(Backup assistance)</strong>。如果服务器不主动更改数据，备份(Backups)可以更轻松地运行。一个常见的场景是将数据复制到从属服务器，然后在数据处于稳定状态时从主服务器断开连接。然后从该服务器执行备份。</p>
+<p><strong>数据分发(Distribution of data)</strong>。与其连接到远程主机，还可以在本地复制数据，并从该数据开始工作。</p>
+</blockquote>
+<h2 id="通用的复制设定-Common-Replication-Setups"><a href="#通用的复制设定-Common-Replication-Setups" class="headerlink" title="通用的复制设定 Common Replication Setups"></a>通用的复制设定 Common Replication Setups</h2><h3 id="标准复制-Standard-Replication"><a href="#标准复制-Standard-Replication" class="headerlink" title="标准复制 Standard Replication"></a>标准复制 Standard Replication</h3><p><strong>特点：</strong></p>
+<ul>
+<li>提供无限的读取横向扩展。</li>
+<li>通过将从机(Slave)升级为主机(Master)来提供高可用性。</li>
+</ul>
+<p><img alt="标准复制示意图" data-src="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png" class="lazyload"></p>
+<h3 id="环状复制-Ring-Replication"><a href="#环状复制-Ring-Replication" class="headerlink" title="环状复制 Ring Replication"></a>环状复制 Ring Replication</h3><p><strong>特点：</strong></p>
+<ul>
+<li>提供读写缩放(scaling)。</li>
+<li>不处理冲突。</li>
+<li>如果一个主服务器发生故障，复制将停止。</li>
+</ul>
+<p><img alt="环状复制示意图" data-src="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/2.png" class="lazyload"></p>
+<h3 id="星状复制-Star-Replication"><a href="#星状复制-Star-Replication" class="headerlink" title="星状复制 Star Replication"></a>星状复制 Star Replication</h3><p><strong>特点：</strong></p>
+<ul>
+<li>提供读写缩放。</li>
+<li>不处理冲突。</li>
+<li>必须使用复制过滤器以避免重复数据。</li>
+</ul>
+<p><img alt="星状复制示意图" data-src="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/3.png" class="lazyload"></p>
+<h3 id="多源复制-Multi-Source-Replication"><a href="#多源复制-Multi-Source-Replication" class="headerlink" title="多源复制 Multi-Source Replication"></a>多源复制 Multi-Source Replication</h3><p><strong>特点：</strong></p>
+<ul>
+<li>允许合并来自不同来源的数据。</li>
+<li>在所有的从服务器上，不同域独立并行执行。</li>
+</ul>
+<p><img alt="多源复制示意图" data-src="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/4.png" class="lazyload"></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/17mariadb-replication/">http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/17mariadb-replication/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mariadb/">mariadb    </a><a class="post-meta__tags" href="/tags/数据库/">数据库    </a><a class="post-meta__tags" href="/tags/db/">db    </a><a class="post-meta__tags" href="/tags/运维/">运维    </a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/"><img class="prev_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>（十八）MariaDB简单的复制(replication)使用示例</span></div></a></div><div class="next-post pull_right"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><img class="next_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/16mariadb-json-function/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>（十六）MariaDB部分内置JSON函数简介</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/" title="（十八）MariaDB简单的复制(replication)使用示例"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png"><div class="relatedPosts_title">（十八）MariaDB简单的复制(replication)使用示例</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/" title="（十六）MariaDB部分内置JSON函数简介"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/16mariadb-json-function/1.png"><div class="relatedPosts_title">（十六）MariaDB部分内置JSON函数简介</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/" title="（十五）Spider功能函数说明"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png"><div class="relatedPosts_title">（十五）Spider功能函数说明</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/" title="（十四）Spider使用示例"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/1.png"><div class="relatedPosts_title">（十四）Spider使用示例</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/13mariadb-spider-storage-engine/" title="（十三）MariaDB存储引擎Spider简介"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/13mariadb-spider-storage-engine/1.png"><div class="relatedPosts_title">（十三）MariaDB存储引擎Spider简介</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/12mariadb-partitioning/" title="（十二）MariaDB中的分区操作"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/12mariadb-partitioning/1.png"><div class="relatedPosts_title">（十二）MariaDB中的分区操作</div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey:'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder:'留个言吧 (^_^)',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
