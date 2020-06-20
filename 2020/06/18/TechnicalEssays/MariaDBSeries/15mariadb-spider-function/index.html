@@ -1,79 +1,106 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>（十五）Spider功能函数说明 | 知己识人</title><meta name="description" content="（十五）Spider功能函数说明"><meta name="keywords" content="mariadb,数据库,db,运维"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="（十五）Spider功能函数说明"><meta name="twitter:description" content="（十五）Spider功能函数说明"><meta name="twitter:image" content="http://swmlee.com/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png"><meta property="og:type" content="article"><meta property="og:title" content="（十五）Spider功能函数说明"><meta property="og:url" content="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="（十五）Spider功能函数说明"><meta property="og:image" content="http://swmlee.com/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
-var t = Cookies.get("theme");
-if (autoChangeMode == '1'){
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-if (t === undefined){
-  if (isLightMode) activateLightMode()
-  else if (isDarkMode) activateDarkMode()
-  else if (isNotSpecified || hasNoSupport){
-    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-    now = new Date();
-    hour = now.getHours();
-    isNight = hour < 6 || hour >= 18
-    isNight ? activateDarkMode() : activateLightMode()
-}
-} else if (t == 'light') activateLightMode()
-else activateDarkMode()
-
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>（十五）Spider功能函数说明 | 知己识人</title><meta name="description" content="Spider FunctionsSpider 存储引擎提供了以下 4 个 UDF 函数，是与 Spider 存储引擎一起安装的 UDF： SPIDER_DIRECT_SQL:在远程服务器中执行 sql（Execute SQL on the remote server）SPIDER_BG_DIRECT_SQL:后台 SQL 执行（Background SQL execution）SPIDER_COP"><meta name="keywords" content="mariadb,数据库,db,运维"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/favicon.jpg"><link rel="canonical" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta property="og:type" content="article"><meta property="og:title" content="（十五）Spider功能函数说明"><meta property="og:url" content="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="Spider FunctionsSpider 存储引擎提供了以下 4 个 UDF 函数，是与 Spider 存储引擎一起安装的 UDF： SPIDER_DIRECT_SQL:在远程服务器中执行 sql（Execute SQL on the remote server）SPIDER_BG_DIRECT_SQL:后台 SQL 执行（Background SQL execution）SPIDER_COP"><meta property="og:image" content="http://swmlee.com/images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png"><meta property="article:published_time" content="2020-06-18T13:06:37.000Z"><meta property="article:modified_time" content="2020-06-18T13:50:00.333Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
   document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
   }
 }
-function activateLightMode(){
+var activateLightMode = function () {
   document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
   }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/"><link rel="prev" title="（十六）MariaDB部分内置JSON函数简介" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><link rel="next" title="（十四）Spider使用示例" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="（十六）MariaDB部分内置JSON函数简介" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><link rel="next" title="（十四）Spider使用示例" href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"http://swmlee.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'true',
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   copy: {
     success: '复制成功',
     error: '复制错误',
     noSupport: '浏览器不支持'
   },
   bookmark: {
-    title: 'Snackbar.bookmark.title',
     message_prev: '按',
     message_next: '键将本页加入书签'
   },
   runtime_unit: '天',
+  runtime: true,
   copyright: undefined,
-  copy_copyright_js: false,
   ClickShowText: undefined,
-  medium_zoom: 'false',
-  Snackbar: undefined
-  
-}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">141</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#Spider-Functions"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">Spider Functions</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#SPIDER-DIRECT-SQL"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">SPIDER_DIRECT_SQL</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#SPIDER-BG-DIRECT-SQL"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">SPIDER_BG_DIRECT_SQL</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#SPIDER-COPY-TABLES-无果"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">SPIDER_COPY_TABLES(无果)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#SPIDER-FLUSH-TABLE-MON-CACHE"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">SPIDER_FLUSH_TABLE_MON_CACHE</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#补充：查看-MariaDB-使用硬盘空间情况"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">补充：查看 MariaDB 使用硬盘空间情况</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spider-Functions"><span class="toc-number">1.</span> <span class="toc-text">Spider Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-DIRECT-SQL"><span class="toc-number">1.1.</span> <span class="toc-text">SPIDER_DIRECT_SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-BG-DIRECT-SQL"><span class="toc-number">1.2.</span> <span class="toc-text">SPIDER_BG_DIRECT_SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-COPY-TABLES-无果"><span class="toc-number">1.3.</span> <span class="toc-text">SPIDER_COPY_TABLES(无果)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-FLUSH-TABLE-MON-CACHE"><span class="toc-number">1.4.</span> <span class="toc-text">SPIDER_FLUSH_TABLE_MON_CACHE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#补充：查看-MariaDB-使用硬盘空间情况"><span class="toc-number">2.</span> <span class="toc-text">补充：查看 MariaDB 使用硬盘空间情况</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png)"><div id="post-info"><div id="post-title"><div class="posttitle">（十五）Spider功能函数说明</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-18 21:06:37<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-18 21:50:00</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/">技术文章</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/MariaDB系列/">MariaDB系列</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">1.2k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 4 分钟</span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="Spider-Functions"><a href="#Spider-Functions" class="headerlink" title="Spider Functions"></a>Spider Functions</h1><p>Spider 存储引擎提供了以下 4 个 UDF 函数，是与 Spider 存储引擎一起安装的 UDF：</p>
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">141</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Spider-Functions"><span class="toc-number">1.</span> <span class="toc-text">Spider Functions</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-DIRECT-SQL"><span class="toc-number">1.1.</span> <span class="toc-text">SPIDER_DIRECT_SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-BG-DIRECT-SQL"><span class="toc-number">1.2.</span> <span class="toc-text">SPIDER_BG_DIRECT_SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-COPY-TABLES-无果"><span class="toc-number">1.3.</span> <span class="toc-text">SPIDER_COPY_TABLES(无果)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPIDER-FLUSH-TABLE-MON-CACHE"><span class="toc-number">1.4.</span> <span class="toc-text">SPIDER_FLUSH_TABLE_MON_CACHE</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#补充：查看-MariaDB-使用硬盘空间情况"><span class="toc-number">2.</span> <span class="toc-text">补充：查看 MariaDB 使用硬盘空间情况</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">（十五）Spider功能函数说明</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-18 21:06:37 21:06:37"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-06-18 21:06:37</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-18 21:50:00 21:50:00"><i class="fas fa-history fa-fw"></i> 更新于 2020-06-18 21:50:00</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</a><i class="fas fa-angle-right post-meta__separator"></i><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/MariaDB%E7%B3%BB%E5%88%97/">MariaDB系列</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 4 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><html><head></head><body><h1 id="Spider-Functions"><a href="#Spider-Functions" class="headerlink" title="Spider Functions"></a>Spider Functions</h1><p>Spider 存储引擎提供了以下 4 个 UDF 函数，是与 Spider 存储引擎一起安装的 UDF：</p>
 <p><strong>SPIDER_DIRECT_SQL</strong>:在远程服务器中执行 sql（Execute SQL on the remote server）<br><strong>SPIDER_BG_DIRECT_SQL</strong>:后台 SQL 执行（Background SQL execution）<br><strong>SPIDER_COPY_TABLES</strong>:（复制表数据）Copy table data<br><strong>SPIDER_FLUSH_TABLE_MON_CACHE</strong>：（刷新 Spider 监视服务器信息）Refreshing Spider monitoring server information</p>
 <p>(UDF:User-Defined Functions，用户定义函数，随着 Spider 存储引擎的安装一并安装，是一种用新函数扩展 MariaDB 的方式，该新函数的工作方式类似于本机（内置）MariaDB 函数)</p>
 <p>本节中，没有特殊说明，一般都是在 spider server 中执行的语句</p>
 <h2 id="SPIDER-DIRECT-SQL"><a href="#SPIDER-DIRECT-SQL" class="headerlink" title="SPIDER_DIRECT_SQL"></a>SPIDER_DIRECT_SQL</h2><p>语法：</p>
-<pre><code>SPIDER_DIRECT_SQL(&#39;sql&#39;, &#39;tmp_table_list&#39;, &#39;parameters&#39;)</code></pre><p>说明：</p>
+<pre><code>SPIDER_DIRECT_SQL('sql', 'tmp_table_list', 'parameters')</code></pre><p>说明：</p>
 <blockquote>
 <p>一个与 Spider Storage Engine 一起安装的 UDF，此功能用于在远程服务器上执行 SQL 字符串 sql，如参数中所定义。 如果返回任何结果集，它们将存储在 tmp_table_list 中。</p>
 </blockquote>
@@ -85,17 +112,17 @@ function activateLightMode(){
 CREATE TEMPORARY TABLE test.res
 (
   id int(10) unsigned NOT NULL,
-  accountName varchar(20) NOT NULL DEFAULT &#39;&#39;,
-  name varchar(128) NOT NULL DEFAULT &#39;&#39;
+  accountName varchar(20) NOT NULL DEFAULT '',
+  name varchar(128) NOT NULL DEFAULT ''
 ) ENGINE=MEMORY;</code></pre>
 <pre><code class="sql">-- 执行SPIDER_DIRECT_SQL语句
-SELECT SPIDER_DIRECT_SQL(&#39;SELECT * FROM test.opportunities&#39;, &#39;res&#39;, &#39;srv &quot;backend1&quot;, port &quot;3306&quot;&#39;);</code></pre>
-<p><img alt="执行SPIDER_DIRECT_SQL" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png" class="lazyload"></p>
+SELECT SPIDER_DIRECT_SQL('SELECT * FROM test.opportunities', 'res', 'srv "backend1", port "3306"');</code></pre>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png" alt="执行SPIDER_DIRECT_SQL"></p>
 <pre><code class="sql">-- 查询执行结果
 SELECT * FROM test.res;</code></pre>
-<p><img alt="执行SPIDER_DIRECT_SQL结果" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/2.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/2.png" alt="执行SPIDER_DIRECT_SQL结果"></p>
 <h2 id="SPIDER-BG-DIRECT-SQL"><a href="#SPIDER-BG-DIRECT-SQL" class="headerlink" title="SPIDER_BG_DIRECT_SQL"></a>SPIDER_BG_DIRECT_SQL</h2><p>语法：</p>
-<pre><code>SPIDER_BG_DIRECT_SQL(&#39;sql&#39;, &#39;tmp_table_list&#39;, &#39;parameters&#39;)</code></pre><p>描述：</p>
+<pre><code>SPIDER_BG_DIRECT_SQL('sql', 'tmp_table_list', 'parameters')</code></pre><p>描述：</p>
 <blockquote>
 <p>在远程服务器上后台执行给定的, 如参数列表中所定义的 SQL 语句；</p>
 </blockquote>
@@ -109,22 +136,22 @@ SELECT * FROM test.res;</code></pre>
 <p>准备操作，在 backend2 的远程主机 MariaDB 上，给 test.opportunities 表添加一条数据：</p>
 <pre><code class="sql">INSERT INTO test.opportunities
 (id, accountName, name, owner, amount, closeDate, stageName)
-VALUES(1, &#39;ubut18test&#39;, &#39;spider&#39;, &#39;spider&#39;, 30, &#39;2020-02-28&#39;, &#39;halo&#39;);</code></pre>
+VALUES(1, 'ubut18test', 'spider', 'spider', 30, '2020-02-28', 'halo');</code></pre>
 <p>在 spider server 本机的 MariaDB 的 test 数据库新建一个临时表 res2：</p>
 <pre><code class="sql">-- 创建一个临时表
 CREATE TEMPORARY TABLE if not exists test.res2
 (
   id int(10) unsigned NOT NULL,
-  accountName varchar(20) NOT NULL DEFAULT &#39;&#39;,
-  name varchar(128) NOT NULL DEFAULT &#39;&#39;
+  accountName varchar(20) NOT NULL DEFAULT '',
+  name varchar(128) NOT NULL DEFAULT ''
 ) ENGINE=MEMORY;</code></pre>
 <p>执行 SPIDER_BG_DIRECT_SQL 示例语句：</p>
-<pre><code class="sql">SELECT SPIDER_BG_DIRECT_SQL(&#39;SELECT * FROM test.opportunities&#39;, &#39;test.res2&#39;, &#39;srv &quot;backend2&quot;, port &quot;3307&quot;&#39;)
-AS &quot;Direct Query&quot;;</code></pre>
-<p><img alt="执行 SPIDER_BG_DIRECT_SQL示例语句" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/3.png" class="lazyload"></p>
+<pre><code class="sql">SELECT SPIDER_BG_DIRECT_SQL('SELECT * FROM test.opportunities', 'test.res2', 'srv "backend2", port "3307"')
+AS "Direct Query";</code></pre>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/3.png" alt="执行 SPIDER_BG_DIRECT_SQL示例语句"></p>
 <p>查看结果，就是刚刚 backend2 新加的那条数据：</p>
 <pre><code class="sql">SELECT * FROM test.res2;</code></pre>
-<p><img alt="SPIDER_BG_DIRECT_SQL执行结果" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/4.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/4.png" alt="SPIDER_BG_DIRECT_SQL执行结果"></p>
 <h2 id="SPIDER-COPY-TABLES-无果"><a href="#SPIDER-COPY-TABLES-无果" class="headerlink" title="SPIDER_COPY_TABLES(无果)"></a>SPIDER_COPY_TABLES(无果)</h2><p>语法：</p>
 <pre><code>SPIDER_COPY_TABLES(spider_table_name, source_link_id, destination_link_id_list [,parameters])</code></pre><p>说明：</p>
 <blockquote>
@@ -136,26 +163,26 @@ AS &quot;Direct Query&quot;;</code></pre>
 <p><strong>(to be honest，这两个 id 还没有研究透彻，测试示例会报错，可以协助指出以下示例无法执行的原因，谢谢。)</strong></p>
 <p><del>示例：</del></p>
 <p><del>例如有执行之前的按 List 分区操作，那么执行<code>SELECT table_name FROM mysql.spider_tables;</code>语句，可以看到类似的数据：</del></p>
-<p><del><img alt="sprider list分区" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/5.png" class="lazyload"></del></p>
+<p><del><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/5.png" alt="sprider list分区"></del></p>
 <p><del>而此时该表的数据应该是：</del></p>
-<p><del><img alt="opportunitiesByList表数据" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/6.png" class="lazyload"></del></p>
+<p><del><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/6.png" alt="opportunitiesByList表数据"></del></p>
 <p><del>为了方便查看分区的效果，按照 bylist 建立分区的规则，向 opportunitiesByList 表插入一些数据：</del></p>
 <pre><code class="sql">INSERT INTO test.opportunitiesByList (id, accountName, name, owner, amount, closeDate, stageName)
 VALUES
-(4, &#39;spiderserver&#39;, &#39;spiderserver&#39;, &#39;Bill&#39;, 30, &#39;2020-02-28&#39;, &#39;hall&#39;),
-(5, &#39;spiderserver&#39;, &#39;spiderserver&#39;, &#39;Bob&#39;, 30, &#39;2020-02-28&#39;, &#39;hall&#39;),
-(6, &#39;spiderserver&#39;, &#39;spiderserver&#39;, &#39;Chris&#39;, 30, &#39;2020-02-28&#39;, &#39;hall&#39;),
-(7, &#39;spiderserver&#39;, &#39;spiderserver&#39;, &#39;Maria&#39;, 30, &#39;2020-02-28&#39;, &#39;hall&#39;),
-(8,&#39;spiderserver&#39;, &#39;spiderserver&#39;, &#39;Olivier&#39;, 30, &#39;2020-02-28&#39;, &#39;hall&#39;);
+(4, 'spiderserver', 'spiderserver', 'Bill', 30, '2020-02-28', 'hall'),
+(5, 'spiderserver', 'spiderserver', 'Bob', 30, '2020-02-28', 'hall'),
+(6, 'spiderserver', 'spiderserver', 'Chris', 30, '2020-02-28', 'hall'),
+(7, 'spiderserver', 'spiderserver', 'Maria', 30, '2020-02-28', 'hall'),
+(8,'spiderserver', 'spiderserver', 'Olivier', 30, '2020-02-28', 'hall');
 SELECT * FROM test.opportunitiesByList;</code></pre>
 <p><del>结果如下：</del></p>
-<p><del><img alt="向 opportunitiesByList 表插入一些数据" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/7.png" class="lazyload"></del></p>
+<p><del><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/7.png" alt="向 opportunitiesByList 表插入一些数据"></del></p>
 <p><del>而 pt1 分区的值：</del></p>
-<p><img alt="pt1 分区的值" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/8.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/8.png" alt="pt1 分区的值"></p>
 <p><del>所以，如果要复制 opportunitiesByList 表数据，就例如：opportunitiesByList#P#pt1 的数据复制到 opportunitiesByList#P#px 中去：</del></p>
-<pre><code>select spider_copy_tables(&#39;test.opportunities&#39;,&#39;1&#39;,&#39;2&#39;);
-select spider_copy_tables(&#39;test.opportunitiesByList#P#pt1&#39;,&#39;1&#39;,&#39;0&#39;);</code></pre><p>#############</p>
-<p><del>这个实际的用法，还是没有搞清楚，这两个&lt; source_link_id &gt; <destination_link_id_list>到底是什么意思，执行上述语句，报错 SQL 错误 [12704][hy000]: (conn=74) Source table is not found，暂时没有找到相关资料。</destination_link_id_list></del></p>
+<pre><code>select spider_copy_tables('test.opportunities','1','2');
+select spider_copy_tables('test.opportunitiesByList#P#pt1','1','0');</code></pre><p>#############</p>
+<p><del>这个实际的用法，还是没有搞清楚，这两个< source_link_id > <destination_link_id_list>到底是什么意思，执行上述语句，报错 SQL 错误 [12704][hy000]: (conn=74) Source table is not found，暂时没有找到相关资料。</destination_link_id_list></del></p>
 <p>#############</p>
 <h2 id="SPIDER-FLUSH-TABLE-MON-CACHE"><a href="#SPIDER-FLUSH-TABLE-MON-CACHE" class="headerlink" title="SPIDER_FLUSH_TABLE_MON_CACHE"></a>SPIDER_FLUSH_TABLE_MON_CACHE</h2><p>语法：</p>
 <pre><code>SPIDER_FLUSH_TABLE_MON_CACHE()</code></pre><p>描述：</p>
@@ -163,38 +190,44 @@ select spider_copy_tables(&#39;test.opportunitiesByList#P#pt1&#39;,&#39;1&#39;,&
 <p>此函数用于刷新监控服务器(monitoring server)的信息。返回 1。</p>
 </blockquote>
 <p>示例：</p>
-<pre><code>SELECT SPIDER_FLUSH_TABLE_MON_CACHE();</code></pre><p><img alt="SPIDER_FLUSH_TABLE_MON_CACHE执行结果" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/9.png" class="lazyload"></p>
+<pre><code>SELECT SPIDER_FLUSH_TABLE_MON_CACHE();</code></pre><p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/9.png" alt="SPIDER_FLUSH_TABLE_MON_CACHE执行结果"></p>
 <p>到这里就简单说完 spider 存储引擎的使用了，主要特点就是处理不同的 MariaDB 实例就像在处理同一个实例一样。</p>
 <p>更多的内容，可以去官网学习了解：<br><a href="https://mariadb.com/kb/en/spider/" target="_blank" rel="noopener">https://mariadb.com/kb/en/spider/</a></p>
 <h1 id="补充：查看-MariaDB-使用硬盘空间情况"><a href="#补充：查看-MariaDB-使用硬盘空间情况" class="headerlink" title="补充：查看 MariaDB 使用硬盘空间情况"></a>补充：查看 MariaDB 使用硬盘空间情况</h1><p>安装 DISKS 插件：</p>
-<pre><code>INSTALL SONAME &#39;disks&#39;</code></pre><p>使用：</p>
-<pre><code>SELECT * FROM Information_Schema.DISKS</code></pre><p><img alt="使用disks插件查看mariadb硬盘占用" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/10.png" class="lazyload"></p>
+<pre><code>INSTALL SONAME 'disks'</code></pre><p>使用：</p>
+<pre><code>SELECT * FROM Information_Schema.DISKS</code></pre><p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/10.png" alt="使用disks插件查看mariadb硬盘占用"></p>
 <p>限制：</p>
 <ul>
 <li>MariaDB 10.1.32 加入；</li>
 <li>从 MariaDB 10.4.7，MariaDB 10.3.17，MariaDB 10.2.26 和 MariaDB 10.1.41 开始，它需要 FILE 权限；</li>
 <li>该插件仅适用于 Linux。</li>
 </ul>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/">http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mariadb/">mariadb    </a><a class="post-meta__tags" href="/tags/数据库/">数据库    </a><a class="post-meta__tags" href="/tags/db/">db    </a><a class="post-meta__tags" href="/tags/运维/">运维    </a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><img class="prev_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/16mariadb-json-function/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>（十六）MariaDB部分内置JSON函数简介</span></div></a></div><div class="next-post pull_right"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/"><img class="next_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>（十四）Spider使用示例</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/" title="（十八）MariaDB简单的复制(replication)使用示例"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png"><div class="relatedPosts_title">（十八）MariaDB简单的复制(replication)使用示例</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/17mariadb-replication/" title="（十七）MariaDB的复制(replication)简介"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/17mariadb-replication/1.png"><div class="relatedPosts_title">（十七）MariaDB的复制(replication)简介</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/" title="（十六）MariaDB部分内置JSON函数简介"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/16mariadb-json-function/1.png"><div class="relatedPosts_title">（十六）MariaDB部分内置JSON函数简介</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/" title="（十四）Spider使用示例"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/1.png"><div class="relatedPosts_title">（十四）Spider使用示例</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/13mariadb-spider-storage-engine/" title="（十三）MariaDB存储引擎Spider简介"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/13mariadb-spider-storage-engine/1.png"><div class="relatedPosts_title">（十三）MariaDB存储引擎Spider简介</div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/12mariadb-partitioning/" title="（十二）MariaDB中的分区操作"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/MariaDBSeries/12mariadb-partitioning/1.png"><div class="relatedPosts_title">（十二）MariaDB中的分区操作</div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = false == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+</body></html></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/">http://swmlee.com/2020/06/18/TechnicalEssays/MariaDBSeries/15mariadb-spider-function/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com" target="_blank">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mariadb/">mariadb</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/db/">db</a><a class="post-meta__tags" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/16mariadb-json-function/"><img class="prev-cover" data-src="/../images/TechnicalEssays/MariaDBSeries/16mariadb-json-function/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">（十六）MariaDB部分内置JSON函数简介</div></div></a></div><div class="next-post pull-right"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/"><img class="next-cover" data-src="/../images/TechnicalEssays/MariaDBSeries/14mariadb-spider-example/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">（十四）Spider使用示例</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/03mariadb-plugin/" title="（三）MariaDB插件(Plugin)简介"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/03mariadb-plugin/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 20:58:42</div><div class="relatedPosts_title">（三）MariaDB插件(Plugin)简介</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/01install-mariadb/" title="（一）MariaDB的安装与卸载"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/01install-mariadb/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 20:54:59</div><div class="relatedPosts_title">（一）MariaDB的安装与卸载</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/05not-mariadb-build-in-plugin/" title="（五）非MariaDB内建插件"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/05not-mariadb-build-in-plugin/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 21:00:17</div><div class="relatedPosts_title">（五）非MariaDB内建插件</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/02mariadb-gui/" title="（二）MariaDB可视化工具——DBeaver"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/02mariadb-gui/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 20:57:45</div><div class="relatedPosts_title">（二）MariaDB可视化工具——DBeaver</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/06mariadb-server-audit-plugin/" title="（六）实用插件ServerAudit测试使用示例"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/06mariadb-server-audit-plugin/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 21:01:09</div><div class="relatedPosts_title">（六）实用插件ServerAudit测试使用示例</div></div></a></div><div class="relatedPosts_item"><a href="/2020/06/18/TechnicalEssays/MariaDBSeries/09mariadb-storage-engine/" title="（九）MariaDB存储引擎简介"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/MariaDBSeries/09mariadb-storage-engine/1.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-18 21:03:25</div><div class="relatedPosts_title">（九）MariaDB存储引擎简介</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail'],'nick,mail')
 
 window.valine = new Valine({
   el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
-  appKey:'fVjXSYoOkStdcmUSqWYgyCgK',
-  placeholder:'留个言吧 (^_^)',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'en',
-  recordIP: true
-});</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
-</script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+  appId: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey: 'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder: '留个言吧 (^_^)',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'en',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/local-search.js"></script></body></html>

@@ -1,74 +1,101 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Angular Schematics 简明教程 | 知己识人</title><meta name="description" content="Angular Schematics 简明教程"><meta name="keywords" content="angular,schematics"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Angular Schematics 简明教程"><meta name="twitter:description" content="Angular Schematics 简明教程"><meta name="twitter:image" content="http://swmlee.com/../images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png"><meta property="og:type" content="article"><meta property="og:title" content="Angular Schematics 简明教程"><meta property="og:url" content="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="Angular Schematics 简明教程"><meta property="og:image" content="http://swmlee.com/../images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
-var t = Cookies.get("theme");
-if (autoChangeMode == '1'){
-const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
-const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
-
-if (t === undefined){
-  if (isLightMode) activateLightMode()
-  else if (isDarkMode) activateDarkMode()
-  else if (isNotSpecified || hasNoSupport){
-    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
-    now = new Date();
-    hour = now.getHours();
-    isNight = hour < 6 || hour >= 18
-    isNight ? activateDarkMode() : activateLightMode()
-}
-} else if (t == 'light') activateLightMode()
-else activateDarkMode()
-
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
-  else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
-} else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Angular Schematics 简明教程 | 知己识人</title><meta name="description" content="angular schematics 101 :基本内容说明基础三问:angular schematics 是什么?有什么用?怎么用?  angular schematics 是什么?首先要知道什么是 schematics(原理图):angular 官方文档说明:  ①: 原理图是一个基于模板的支持复杂逻辑的代码生成器。它是一组通过生成代码或修改代码来转换软件项目的指令。 原理图会打包成集合（co"><meta name="keywords" content="angular,schematics"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/favicon.jpg"><link rel="canonical" href="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta property="og:type" content="article"><meta property="og:title" content="Angular Schematics 简明教程"><meta property="og:url" content="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="angular schematics 101 :基本内容说明基础三问:angular schematics 是什么?有什么用?怎么用?  angular schematics 是什么?首先要知道什么是 schematics(原理图):angular 官方文档说明:  ①: 原理图是一个基于模板的支持复杂逻辑的代码生成器。它是一组通过生成代码或修改代码来转换软件项目的指令。 原理图会打包成集合（co"><meta property="og:image" content="http://swmlee.com/images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png"><meta property="article:published_time" content="2019-12-12T12:39:17.000Z"><meta property="article:modified_time" content="2019-12-19T13:09:36.761Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
   document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
   }
 }
-function activateLightMode(){
+var activateLightMode = function () {
   document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
   }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/"><link rel="prev" title="有些事来不及准备，但还是得面对" href="http://swmlee.com/2019/12/15/OrdinaryArticles/Essay/03ReadyForConsequence/"><link rel="next" title="只言片语——angular material input输入框可以辅助下拉选择" href="http://swmlee.com/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="有些事来不及准备，但还是得面对" href="http://swmlee.com/2019/12/15/OrdinaryArticles/Essay/03ReadyForConsequence/"><link rel="next" title="只言片语——angular material input输入框可以辅助下拉选择" href="http://swmlee.com/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"http://swmlee.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'true',
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   copy: {
     success: '复制成功',
     error: '复制错误',
     noSupport: '浏览器不支持'
   },
   bookmark: {
-    title: 'Snackbar.bookmark.title',
     message_prev: '按',
     message_next: '键将本页加入书签'
   },
   runtime_unit: '天',
+  runtime: true,
   copyright: undefined,
-  copy_copyright_js: false,
   ClickShowText: undefined,
-  medium_zoom: 'false',
-  Snackbar: undefined
-  
-}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">141</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#angular-schematics-101-基本内容说明"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">angular schematics 101 :基本内容说明</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#基础三问-angular-schematics-是什么-有什么用-怎么用"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">基础三问:angular schematics 是什么?有什么用?怎么用?</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#angular-schematics-是什么"><span class="toc_mobile_items-number">1.1.1.</span> <span class="toc_mobile_items-text">angular schematics 是什么?</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#所以-angular-schematics-只是模板代码生成器"><span class="toc_mobile_items-number">1.1.2.</span> <span class="toc_mobile_items-text">所以 angular schematics 只是模板代码生成器?</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#简单上手-angular-schematics：创建一个-hello"><span class="toc_mobile_items-number">1.1.3.</span> <span class="toc_mobile_items-text">简单上手 angular schematics：创建一个 hello</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#angular-schematics-实现-ng-generator-使用模板生成组件"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">angular schematics 实现 ng generator 使用模板生成组件</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#准备工作"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">准备工作</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#实现创建通用-component-组件"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">实现创建通用 component 组件</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#创建-component-文件模板-template"><span class="toc_mobile_items-number">2.2.1.</span> <span class="toc_mobile_items-text">创建 component 文件模板 template</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#配置-schema-json-定义该原理图可用选项"><span class="toc_mobile_items-number">2.2.2.</span> <span class="toc_mobile_items-text">配置 schema.json,定义该原理图可用选项</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#创建-schema-d-ts-定义的各个选项的值"><span class="toc_mobile_items-number">2.2.3.</span> <span class="toc_mobile_items-text">创建 schema.d.ts,定义的各个选项的值</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#编写规则工厂逻辑代码"><span class="toc_mobile_items-number">2.2.4.</span> <span class="toc_mobile_items-text">编写规则工厂逻辑代码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#编写测试用例测试代码"><span class="toc_mobile_items-number">2.2.5.</span> <span class="toc_mobile_items-text">编写测试用例测试代码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实际-angular-项目运行"><span class="toc_mobile_items-number">2.2.6.</span> <span class="toc_mobile_items-text">实际 angular 项目运行</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#angular-schematics-实现-ng-add-指令安装模块"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">angular schematics 实现 ng add 指令安装模块</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#创建-ng-add-的-schema-json-并配置"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">创建 ng add 的 schema.json 并配置</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#生成并导出-schema-d-ts-文件"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">生成并导出 schema.d.ts 文件</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#编写规则工厂实现逻辑代码"><span class="toc_mobile_items-number">3.3.</span> <span class="toc_mobile_items-text">编写规则工厂实现逻辑代码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#测试并使用"><span class="toc_mobile_items-number">3.4.</span> <span class="toc_mobile_items-text">测试并使用</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#angular-schematics-实现-ng-update-更新模块时修改指定组件内容"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">angular schematics 实现 ng update 更新模块时修改指定组件内容</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#创建-migration-json-文件"><span class="toc_mobile_items-number">4.1.</span> <span class="toc_mobile_items-text">创建 migration.json 文件</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#在-package-json-中声明-ug-update-配置"><span class="toc_mobile_items-number">4.2.</span> <span class="toc_mobile_items-text">在 package.json 中声明 ug-update 配置</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#编写更新执行的规则工厂逻辑代码"><span class="toc_mobile_items-number">4.3.</span> <span class="toc_mobile_items-text">编写更新执行的规则工厂逻辑代码</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#测试并使用-1"><span class="toc_mobile_items-number">4.4.</span> <span class="toc_mobile_items-text">测试并使用</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#将原理图-package-发布并使用"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">将原理图 package 发布并使用</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#使用-npm-link-本地调试"><span class="toc_mobile_items-number">5.1.</span> <span class="toc_mobile_items-text">使用 npm link 本地调试</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#将原理图-package-发布到仓库并使用"><span class="toc_mobile_items-number">5.2.</span> <span class="toc_mobile_items-text">将原理图 package 发布到仓库并使用</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#添加帐号，在终端输入-adduser，按提示填写"><span class="toc_mobile_items-number">5.2.1.</span> <span class="toc_mobile_items-text">添加帐号，在终端输入 adduser，按提示填写</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#在根目录执行npm-publish"><span class="toc_mobile_items-number">5.2.2.</span> <span class="toc_mobile_items-text">在根目录执行npm publish</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#发布-0-0-2-版本的包"><span class="toc_mobile_items-number">5.2.3.</span> <span class="toc_mobile_items-text">发布 0.0.2 版本的包</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#实际测试使用"><span class="toc_mobile_items-number">5.2.4.</span> <span class="toc_mobile_items-text">实际测试使用</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#总结"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">总结</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-101-基本内容说明"><span class="toc-number">1.</span> <span class="toc-text">angular schematics 101 :基本内容说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础三问-angular-schematics-是什么-有什么用-怎么用"><span class="toc-number">1.1.</span> <span class="toc-text">基础三问:angular schematics 是什么?有什么用?怎么用?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#angular-schematics-是什么"><span class="toc-number">1.1.1.</span> <span class="toc-text">angular schematics 是什么?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所以-angular-schematics-只是模板代码生成器"><span class="toc-number">1.1.2.</span> <span class="toc-text">所以 angular schematics 只是模板代码生成器?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单上手-angular-schematics：创建一个-hello"><span class="toc-number">1.1.3.</span> <span class="toc-text">简单上手 angular schematics：创建一个 hello</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-generator-使用模板生成组件"><span class="toc-number">2.</span> <span class="toc-text">angular schematics 实现 ng generator 使用模板生成组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现创建通用-component-组件"><span class="toc-number">2.2.</span> <span class="toc-text">实现创建通用 component 组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-component-文件模板-template"><span class="toc-number">2.2.1.</span> <span class="toc-text">创建 component 文件模板 template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-schema-json-定义该原理图可用选项"><span class="toc-number">2.2.2.</span> <span class="toc-text">配置 schema.json,定义该原理图可用选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-schema-d-ts-定义的各个选项的值"><span class="toc-number">2.2.3.</span> <span class="toc-text">创建 schema.d.ts,定义的各个选项的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写规则工厂逻辑代码"><span class="toc-number">2.2.4.</span> <span class="toc-text">编写规则工厂逻辑代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写测试用例测试代码"><span class="toc-number">2.2.5.</span> <span class="toc-text">编写测试用例测试代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实际-angular-项目运行"><span class="toc-number">2.2.6.</span> <span class="toc-text">实际 angular 项目运行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-add-指令安装模块"><span class="toc-number">3.</span> <span class="toc-text">angular schematics 实现 ng add 指令安装模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-ng-add-的-schema-json-并配置"><span class="toc-number">3.1.</span> <span class="toc-text">创建 ng add 的 schema.json 并配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成并导出-schema-d-ts-文件"><span class="toc-number">3.2.</span> <span class="toc-text">生成并导出 schema.d.ts 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写规则工厂实现逻辑代码"><span class="toc-number">3.3.</span> <span class="toc-text">编写规则工厂实现逻辑代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试并使用"><span class="toc-number">3.4.</span> <span class="toc-text">测试并使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-update-更新模块时修改指定组件内容"><span class="toc-number">4.</span> <span class="toc-text">angular schematics 实现 ng update 更新模块时修改指定组件内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-migration-json-文件"><span class="toc-number">4.1.</span> <span class="toc-text">创建 migration.json 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-package-json-中声明-ug-update-配置"><span class="toc-number">4.2.</span> <span class="toc-text">在 package.json 中声明 ug-update 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写更新执行的规则工厂逻辑代码"><span class="toc-number">4.3.</span> <span class="toc-text">编写更新执行的规则工厂逻辑代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试并使用-1"><span class="toc-number">4.4.</span> <span class="toc-text">测试并使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#将原理图-package-发布并使用"><span class="toc-number">5.</span> <span class="toc-text">将原理图 package 发布并使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-npm-link-本地调试"><span class="toc-number">5.1.</span> <span class="toc-text">使用 npm link 本地调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将原理图-package-发布到仓库并使用"><span class="toc-number">5.2.</span> <span class="toc-text">将原理图 package 发布到仓库并使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加帐号，在终端输入-adduser，按提示填写"><span class="toc-number">5.2.1.</span> <span class="toc-text">添加帐号，在终端输入 adduser，按提示填写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在根目录执行npm-publish"><span class="toc-number">5.2.2.</span> <span class="toc-text">在根目录执行npm publish</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布-0-0-2-版本的包"><span class="toc-number">5.2.3.</span> <span class="toc-text">发布 0.0.2 版本的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实际测试使用"><span class="toc-number">5.2.4.</span> <span class="toc-text">实际测试使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/../images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png)"><div id="post-info"><div id="post-title"><div class="posttitle">Angular Schematics 简明教程</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-12-12 20:39:17<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-12-19 21:09:36</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/">技术文章</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/angular/">angular</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">8.8k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 37 分钟</span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="angular-schematics-101-基本内容说明"><a href="#angular-schematics-101-基本内容说明" class="headerlink" title="angular schematics 101 :基本内容说明"></a>angular schematics 101 :基本内容说明</h1><h2 id="基础三问-angular-schematics-是什么-有什么用-怎么用"><a href="#基础三问-angular-schematics-是什么-有什么用-怎么用" class="headerlink" title="基础三问:angular schematics 是什么?有什么用?怎么用?"></a>基础三问:angular schematics 是什么?有什么用?怎么用?</h2><a id="more"></a>
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">141</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-101-基本内容说明"><span class="toc-number">1.</span> <span class="toc-text">angular schematics 101 :基本内容说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础三问-angular-schematics-是什么-有什么用-怎么用"><span class="toc-number">1.1.</span> <span class="toc-text">基础三问:angular schematics 是什么?有什么用?怎么用?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#angular-schematics-是什么"><span class="toc-number">1.1.1.</span> <span class="toc-text">angular schematics 是什么?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所以-angular-schematics-只是模板代码生成器"><span class="toc-number">1.1.2.</span> <span class="toc-text">所以 angular schematics 只是模板代码生成器?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单上手-angular-schematics：创建一个-hello"><span class="toc-number">1.1.3.</span> <span class="toc-text">简单上手 angular schematics：创建一个 hello</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-generator-使用模板生成组件"><span class="toc-number">2.</span> <span class="toc-text">angular schematics 实现 ng generator 使用模板生成组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.1.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现创建通用-component-组件"><span class="toc-number">2.2.</span> <span class="toc-text">实现创建通用 component 组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-component-文件模板-template"><span class="toc-number">2.2.1.</span> <span class="toc-text">创建 component 文件模板 template</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-schema-json-定义该原理图可用选项"><span class="toc-number">2.2.2.</span> <span class="toc-text">配置 schema.json,定义该原理图可用选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-schema-d-ts-定义的各个选项的值"><span class="toc-number">2.2.3.</span> <span class="toc-text">创建 schema.d.ts,定义的各个选项的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写规则工厂逻辑代码"><span class="toc-number">2.2.4.</span> <span class="toc-text">编写规则工厂逻辑代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编写测试用例测试代码"><span class="toc-number">2.2.5.</span> <span class="toc-text">编写测试用例测试代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实际-angular-项目运行"><span class="toc-number">2.2.6.</span> <span class="toc-text">实际 angular 项目运行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-add-指令安装模块"><span class="toc-number">3.</span> <span class="toc-text">angular schematics 实现 ng add 指令安装模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-ng-add-的-schema-json-并配置"><span class="toc-number">3.1.</span> <span class="toc-text">创建 ng add 的 schema.json 并配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成并导出-schema-d-ts-文件"><span class="toc-number">3.2.</span> <span class="toc-text">生成并导出 schema.d.ts 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写规则工厂实现逻辑代码"><span class="toc-number">3.3.</span> <span class="toc-text">编写规则工厂实现逻辑代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试并使用"><span class="toc-number">3.4.</span> <span class="toc-text">测试并使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#angular-schematics-实现-ng-update-更新模块时修改指定组件内容"><span class="toc-number">4.</span> <span class="toc-text">angular schematics 实现 ng update 更新模块时修改指定组件内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-migration-json-文件"><span class="toc-number">4.1.</span> <span class="toc-text">创建 migration.json 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-package-json-中声明-ug-update-配置"><span class="toc-number">4.2.</span> <span class="toc-text">在 package.json 中声明 ug-update 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写更新执行的规则工厂逻辑代码"><span class="toc-number">4.3.</span> <span class="toc-text">编写更新执行的规则工厂逻辑代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试并使用-1"><span class="toc-number">4.4.</span> <span class="toc-text">测试并使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#将原理图-package-发布并使用"><span class="toc-number">5.</span> <span class="toc-text">将原理图 package 发布并使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-npm-link-本地调试"><span class="toc-number">5.1.</span> <span class="toc-text">使用 npm link 本地调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将原理图-package-发布到仓库并使用"><span class="toc-number">5.2.</span> <span class="toc-text">将原理图 package 发布到仓库并使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加帐号，在终端输入-adduser，按提示填写"><span class="toc-number">5.2.1.</span> <span class="toc-text">添加帐号，在终端输入 adduser，按提示填写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在根目录执行npm-publish"><span class="toc-number">5.2.2.</span> <span class="toc-text">在根目录执行npm publish</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布-0-0-2-版本的包"><span class="toc-number">5.2.3.</span> <span class="toc-text">发布 0.0.2 版本的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实际测试使用"><span class="toc-number">5.2.4.</span> <span class="toc-text">实际测试使用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/../images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">Angular Schematics 简明教程</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-12-12 20:39:17 20:39:17"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2019-12-12 20:39:17</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2019-12-19 21:09:36 21:09:36"><i class="fas fa-history fa-fw"></i> 更新于 2019-12-19 21:09:36</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</a><i class="fas fa-angle-right post-meta__separator"></i><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/angular/">angular</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">8.3k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 34 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><html><head></head><body><h1 id="angular-schematics-101-基本内容说明"><a href="#angular-schematics-101-基本内容说明" class="headerlink" title="angular schematics 101 :基本内容说明"></a>angular schematics 101 :基本内容说明</h1><h2 id="基础三问-angular-schematics-是什么-有什么用-怎么用"><a href="#基础三问-angular-schematics-是什么-有什么用-怎么用" class="headerlink" title="基础三问:angular schematics 是什么?有什么用?怎么用?"></a>基础三问:angular schematics 是什么?有什么用?怎么用?</h2><a id="more"></a>
 
 <h3 id="angular-schematics-是什么"><a href="#angular-schematics-是什么" class="headerlink" title="angular schematics 是什么?"></a>angular schematics 是什么?</h3><p>首先要知道什么是 schematics(原理图):<br>angular 官方文档说明:</p>
 <blockquote>
@@ -81,16 +108,16 @@ function activateLightMode(){
 <h3 id="简单上手-angular-schematics：创建一个-hello"><a href="#简单上手-angular-schematics：创建一个-hello" class="headerlink" title="简单上手 angular schematics：创建一个 hello"></a>简单上手 angular schematics：创建一个 hello</h3><p>1、全局安装 schematics cli（需要 node 6.9 以上版本）</p>
 <pre><code>npm install -g @angular-devkit/schematics-cli</code></pre><p>安装完成之后，可以在终端输入<code>schmatics</code>命令，能显示 schematics 的指令说明则表示安装成功。</p>
 <p>2、创建一个空的原理图</p>
-<pre><code>schematics blank --name=hello</code></pre><p>生成的原理图中基本内容结构可参看官网说明<a href="https://angular.cn/guide/schematics-authoring#collection-contents" target="_blank" rel="noopener">集合的内容</a>和<a href="https://angular.cn/guide/schematics-authoring#named-schematics" target="_blank" rel="noopener">命名原理图</a><br>简单说明如下：<br><img alt="schematics說明.png" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/schematics%E8%AF%B4%E6%98%8E.png" class="lazyload"><br><img alt="保持一致" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4.png" class="lazyload"></p>
-<p>collection.json 配置一般一个原理图就只配置一次，所以大部分内容都是在 index.ts 中实现，所以，一定先清楚这个文件的内容：<br>具体可以参看官方说明<a href="https://angular.cn/guide/schematics-authoring#schematics-concepts" target="_blank" rel="noopener">原理图的概念</a><br>简单说明如下：<br><img alt="原理图基本概念說明" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E5%8E%9F%E7%90%86%E5%9B%BE%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E.png" class="lazyload"></p>
+<pre><code>schematics blank --name=hello</code></pre><p>生成的原理图中基本内容结构可参看官网说明<a href="https://angular.cn/guide/schematics-authoring#collection-contents" target="_blank" rel="noopener">集合的内容</a>和<a href="https://angular.cn/guide/schematics-authoring#named-schematics" target="_blank" rel="noopener">命名原理图</a><br>简单说明如下：<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/schematics%E8%AF%B4%E6%98%8E.png" alt="schematics說明.png"><br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4.png" alt="保持一致"></p>
+<p>collection.json 配置一般一个原理图就只配置一次，所以大部分内容都是在 index.ts 中实现，所以，一定先清楚这个文件的内容：<br>具体可以参看官方说明<a href="https://angular.cn/guide/schematics-authoring#schematics-concepts" target="_blank" rel="noopener">原理图的概念</a><br>简单说明如下：<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E5%8E%9F%E7%90%86%E5%9B%BE%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E8%AF%B4%E6%98%8E.png" alt="原理图基本概念說明"></p>
 <p>3、运行原理图<br>因为创建的是一个空白原理图，运行是不会有任何输出显示的。</p>
 <p>3.1 在当前位置运行：<br>先构建：</p>
 <pre><code>npm run build</code></pre><p>再运行</p>
 <pre><code>schematics .:hello</code></pre><p>简单说明：<br>ts 代码在编译之后转换成 js 代码才能运行，在原理图中，在执行<code>npm run build</code>之后，<br>会出现其他的 XXX.d.ts、XXX.js、XXX.js.map。<br>运行时，<code>.:hello</code>的<code>.</code>是当前位置，<code>hello</code>则是在 collection.json 中配置的原理图的名字。<br>当然，一份 collection.json 中可以配置多个原理图，所以要指定使用的是哪一个。</p>
 <p>“Nothing to be done.”显然没有任何意义，我们可以在 index.ts 中加入一句打印，看看效果：</p>
 <pre><code>export function hello(_options: any): Rule {
-  return (tree: Tree, _context: SchematicContext) =&gt; {
-    console.log(&quot;hello&quot;);
+  return (tree: Tree, _context: SchematicContext) => {
+    console.log("hello");
     return tree;
   };
 }</code></pre><p>那么再次编译运行之后，就可以看到输入的是：</p>
@@ -105,10 +132,10 @@ david@ubuntu:~/TTT/test$</code></pre><p>以上就是 angular schematics 的基�
 <h1 id="angular-schematics-实现-ng-generator-使用模板生成组件"><a href="#angular-schematics-实现-ng-generator-使用模板生成组件" class="headerlink" title="angular schematics 实现 ng generator 使用模板生成组件"></a>angular schematics 实现 ng generator 使用模板生成组件</h1><p>本节会实现，在 angular 项目中，使用 ng generator 指令生成一个通用的 component 组件，和一般向后台请求数据需要包含 CRUD 函数的 service 组件。here we go。</p>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>新建一个空白 schematics，如下：</p>
 <pre><code>schematics blank --name=angular-schematics-tutorial</code></pre><p>将原本的内容：</p>
-<p><img alt="空白項目修改前" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E7%A9%BA%E7%99%BD%E9%A0%85%E7%9B%AE%E4%BF%AE%E6%94%B9%E5%89%8D.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E7%A9%BA%E7%99%BD%E9%A0%85%E7%9B%AE%E4%BF%AE%E6%94%B9%E5%89%8D.png" alt="空白項目修改前"></p>
 <p>修改为：</p>
-<p><img alt="修改后" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E4%BF%AE%E6%94%B9%E5%90%8E.png" class="lazyload"><br>为了方便，不用每次修改都运行 build，在此项目的 package.json 的 script 加入一行：</p>
-<pre><code>&quot;build:watch&quot;: &quot;tsc -p tsconfig.json --watch&quot;</code></pre><p>使得该项目一致在 watch 状态下，然后运行</p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E4%BF%AE%E6%94%B9%E5%90%8E.png" alt="修改后"><br>为了方便，不用每次修改都运行 build，在此项目的 package.json 的 script 加入一行：</p>
+<pre><code>"build:watch": "tsc -p tsconfig.json --watch"</code></pre><p>使得该项目一致在 watch 状态下，然后运行</p>
 <pre><code>npm run build:watch</code></pre><p>准备工作完成，进入正题。</p>
 <h2 id="实现创建通用-component-组件"><a href="#实现创建通用-component-组件" class="headerlink" title="实现创建通用 component 组件"></a>实现创建通用 component 组件</h2><p>一般每个命令原理图都包含以下内容：</p>
 <blockquote>
@@ -117,53 +144,53 @@ david@ubuntu:~/TTT/test$</code></pre><p>以上就是 angular schematics 的基�
 <p>我们的也不例外。</p>
 <h3 id="创建-component-文件模板-template"><a href="#创建-component-文件模板-template" class="headerlink" title="创建 component 文件模板 template"></a>创建 component 文件模板 template</h3><p>一般 angular component 会包含 4 个文件：XXX.html，XXX.scss，XXX.spec.ts，XXX.ts。所以，先准备好这些模板。</p>
 <p>在/component 文件夹下新建 files 文件夹，并创建以下 4 个文件，效果如下：</p>
-<p><img alt="component的模板文件" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/component%E7%9A%84%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/component%E7%9A%84%E6%A8%A1%E6%9D%BF%E6%96%87%E4%BB%B6.png" alt="component的模板文件"></p>
 <p>简单说明两个函数：</p>
 <blockquote>
 <p>classify() 方法接受一个值，并返回标题格式（title case）的值。比如，如果提供的名字是 my service，它就会返回 MyService。<br>dasherize() 方法接受一个值，并以中线分隔并小写的形式返回值。比如，如果提供的名字是 MyService，它就会返回 “my-service” 的形式。</p>
 </blockquote>
 <p>此 component 模块的效果就是，在新建一个 component 时，输入 component 的名字，例如 apple，则会在该 angular 项目的 src/app/下，新建一个文件夹 apple，下面 4 个文件 apple.component.html， apple.component.scss，apple.component.spec.ts，apple.component.ts。</p>
 <p>模板内容分别如下：<br><code>__name@dasherize__.component.html.template文件：</code></p>
-<pre><code>&lt;p&gt;
-  &lt;%= dasherize(name) %&gt; works!
-&lt;/p&gt;
+<pre><code><p>
+  <%= dasherize(name) %> works!
+</p>
 </code></pre><p><code>__name@dasherize__.component.spec.ts.template文件：</code></p>
 <pre><code>/* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from &#39;@angular/core/testing&#39;;
-import { By } from &#39;@angular/platform-browser&#39;;
-import { DebugElement } from &#39;@angular/core&#39;;
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
-import { &lt;%= classify(name) %&gt;Component } from &#39;./&lt;%= dasherize(name) %&gt;.component&#39;;
+import { <%= classify(name) %>Component } from './<%= dasherize(name) %>.component';
 
-describe(&#39;&lt;%= classify(name) %&gt;Component&#39;, () =&gt; {
-  let component: &lt;%= classify(name) %&gt;Component;
-  let fixture: ComponentFixture&lt;&lt;%= classify(name) %&gt;Component&gt;;
+describe('<%= classify(name) %>Component', () => {
+  let component: <%= classify(name) %>Component;
+  let fixture: ComponentFixture<<%= classify(name) %>Component>;
 
-  beforeEach(async(() =&gt; {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [&lt;%= classify(name) %&gt;Component]
+      declarations: [<%= classify(name) %>Component]
     })
       .compileComponents();
   }));
 
-  beforeEach(() =&gt; {
-    fixture = TestBed.createComponent(&lt;%= classify(name) %&gt;Component);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(<%= classify(name) %>Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it(&#39;should create&#39;, () =&gt; {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });</code></pre><p><code>__name@dasherize__.component.ts.template文件：</code></p>
-<pre><code>import { Component, OnInit } from &#39;@angular/core&#39;;
+<pre><code>import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: &#39;app-&lt;%= dasherize(name) %&gt;&#39;,
-  templateUrl: &#39;./&lt;%= dasherize(name) %&gt;.component.html&#39;,
-  styleUrls: [&#39;./&lt;%= dasherize(name) %&gt;.component.scss&#39;]
+  selector: 'app-<%= dasherize(name) %>',
+  templateUrl: './<%= dasherize(name) %>.component.html',
+  styleUrls: ['./<%= dasherize(name) %>.component.scss']
 })
-export class &lt;%=classify(name)%&gt;Component implements OnInit {
+export class <%=classify(name)%>Component implements OnInit {
 
   constructor() { }
 
@@ -172,24 +199,24 @@ export class &lt;%=classify(name)%&gt;Component implements OnInit {
 }</code></pre><p>scss 部分就没有必要了。<br>此部分内容，可参考 angular-cli 源代码内容：<a href="https://github.com/angular/angular-cli/tree/master/packages/schematics/angular/component/files/__name%40dasherize%40if-flat__" target="_blank" rel="noopener">angular-cli component 组件模板</a></p>
 <h3 id="配置-schema-json-定义该原理图可用选项"><a href="#配置-schema-json-定义该原理图可用选项" class="headerlink" title="配置 schema.json,定义该原理图可用选项"></a>配置 schema.json,定义该原理图可用选项</h3><p>在 component 文件夹下新建 schema.json，并输入以下内容：</p>
 <pre><code>{
-    &quot;$schema&quot;: &quot;http://json-schema.org/schema&quot;,
-    &quot;id&quot;: &quot;componentSchema&quot;,
-    &quot;title&quot;: &quot;component options schema.&quot;,
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;descripiton&quot;: &quot;创建一个component范本&quot;,
-    &quot;properties&quot;: {
-        &quot;name&quot;: {
-            &quot;description&quot;: &quot;component的名字.&quot;,
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;$default&quot;: {
-                &quot;$source&quot;: &quot;argv&quot;,
-                &quot;index&quot;: 0
+    "$schema": "http://json-schema.org/schema",
+    "id": "componentSchema",
+    "title": "component options schema.",
+    "type": "object",
+    "descripiton": "创建一个component范本",
+    "properties": {
+        "name": {
+            "description": "component的名字.",
+            "type": "string",
+            "$default": {
+                "$source": "argv",
+                "index": 0
             },
-            &quot;x-prompt&quot;: &quot;你想创建的component的名字:&quot;
+            "x-prompt": "你想创建的component的名字:"
         }
     },
-    &quot;required&quot;: [
-        &quot;name&quot;
+    "required": [
+        "name"
     ]
 }</code></pre><p>属性说明：</p>
 <blockquote>
@@ -197,12 +224,12 @@ export class &lt;%=classify(name)%&gt;Component implements OnInit {
 </blockquote>
 <p>注意属性(proerties)选项：<br>　　$default 的设定，上面的表示，如果没有指定输入的选项，那么输入的第一个就是 name<br>　　 x-prompt：如果没有输入选项，则提示语提示输入</p>
 <p><strong>创建好 schema.json 之后，一定要记得在 collection.json 中配置 schema 属性</strong></p>
-<p><img alt="在collection中配置schema" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E5%9C%A8collection%E4%B8%AD%E9%85%8D%E7%BD%AEschema.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E5%9C%A8collection%E4%B8%AD%E9%85%8D%E7%BD%AEschema.png" alt="在collection中配置schema"></p>
 <h3 id="创建-schema-d-ts-定义的各个选项的值"><a href="#创建-schema-d-ts-定义的各个选项的值" class="headerlink" title="创建 schema.d.ts,定义的各个选项的值"></a>创建 schema.d.ts,定义的各个选项的值</h3><p>一般的，可以手动创建 schema.d.ts，如本生成 component 的原理图，它的 schema.json 中属性只有一个必填的 name，那么编写的 schema.d.ts 内容就如下：</p>
 <pre><code>export interface Schema {
     name: string;
 }</code></pre><p>实际上，这个文件可以使用指令生成，在 schema.json 的同级目录下，开启终端输入指令，如下：</p>
-<pre><code>npx -p dtsgenerator dtsgen schema.json -o schema.d.ts</code></pre><p>效果如下<br><img alt="自动生成schema.d.ts文件.png" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90schema.d.ts%E6%96%87%E4%BB%B6.png" class="lazyload"></p>
+<pre><code>npx -p dtsgenerator dtsgen schema.json -o schema.d.ts</code></pre><p>效果如下<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90schema.d.ts%E6%96%87%E4%BB%B6.png" alt="自动生成schema.d.ts文件.png"></p>
 <p>但注意，<strong>生成之后把 declare 改成 export</strong>，因为需要把这接口导出使用。</p>
 <h3 id="编写规则工厂逻辑代码"><a href="#编写规则工厂逻辑代码" class="headerlink" title="编写规则工厂逻辑代码"></a>编写规则工厂逻辑代码</h3><p>以上都定义完之后，便到了最重要的环节，编写逻辑代码实现 componet 组件的生成。</p>
 <p>简单分析，至少我们有以下几步工作需要完成：<br>第一步：判断目标项目是不是 angular 项目。如果不在 angular 项目中去生成 angular 的 componet，那就没什么意义。这一步可以提出来通用。<br>　　同理，@schematics 对 angular 有很多的已有支持，我们这里可以用到一些便捷的方法，所以需要先安装@schematics/angular，输入指令如下：</p>
@@ -213,22 +240,22 @@ export class &lt;%=classify(name)%&gt;Component implements OnInit {
   apply, mergeWith, url,
   move,
   applyTemplates, SchematicsException
-} from &#39;@angular-devkit/schematics&#39;;
-import { strings } from &#39;@angular-devkit/core&#39;;
+} from '@angular-devkit/schematics';
+import { strings } from '@angular-devkit/core';
 
-import { ComponentSchema as Schema } from &#39;./schema&#39;
+import { ComponentSchema as Schema } from './schema'
 
-import { buildDefaultPath } from &#39;@schematics/angular/utility/project&#39;;
-import { parseName } from &#39;@schematics/angular/utility/parse-name&#39;;
+import { buildDefaultPath } from '@schematics/angular/utility/project';
+import { parseName } from '@schematics/angular/utility/parse-name';
 
 export function genComponent(_options: Schema): Rule {
-  return (tree: Tree, _context: SchematicContext) =&gt; {
+  return (tree: Tree, _context: SchematicContext) => {
 
     // 获取到在angular cli工作区下的 路劲和要生成的组件 前缀name
     const { name, path } = getParsePath(tree, _options);
 
     // 读取模板文件
-    const sourceTemplates = url(&#39;./files&#39;);
+    const sourceTemplates = url('./files');
 
     // 应用模板文件
     const sourceParametrizedTemplates = apply(sourceTemplates, [
@@ -248,11 +275,11 @@ export function genComponent(_options: Schema): Rule {
 function getParsePath(tree: Tree, options: any): any {
 
   // 读取angular.json文件并存为buffer
-  const workspaceConfigBuffer = tree.read(&quot;angular.json&quot;)
+  const workspaceConfigBuffer = tree.read("angular.json")
 
   // 判断是不是在一个angular-cli工作区
   if (!workspaceConfigBuffer) {
-    throw new SchematicsException(&#39;不在angular cli工作区,请在angular项目中执行!&#39;)
+    throw new SchematicsException('不在angular cli工作区,请在angular项目中执行!')
   }
 
   // 读取并整理angular配置
@@ -272,31 +299,31 @@ function getParsePath(tree: Tree, options: any): any {
   return parsePath;
 }</code></pre><p>像上述的<code>buildDefaultPath</code>，<code>parseName</code>方法就是@schematics/angular 中提供的。</p>
 <h3 id="编写测试用例测试代码"><a href="#编写测试用例测试代码" class="headerlink" title="编写测试用例测试代码"></a>编写测试用例测试代码</h3><p>这个测试方面的内容也是个大项，这里就不多说明，简单说一下我们的测试用例。<br>我的测试就是模拟生成一个 angular 项目，然后看看是否在里面生成了 component 的那 4 个文件，若有生成，那么通过，否则就失败。<br>修改 index_spec.ts 代码如下：</p>
-<pre><code>import * as path from &#39;path&#39;;
+<pre><code>import * as path from 'path';
 
-import { SchematicTestRunner, UnitTestTree } from &#39;@angular-devkit/schematics/testing&#39;;
-import { Schema as ApplicationOptions, Style } from &#39;@schematics/angular/application/schema&#39;;
-import { Schema as WorkspaceOptions } from &#39;@schematics/angular/workspace/schema&#39;;
-import { strings } from &#39;@angular-devkit/core&#39;;
+import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import { Schema as ApplicationOptions, Style } from '@schematics/angular/application/schema';
+import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
+import { strings } from '@angular-devkit/core';
 
-const collectionPath = path.join(__dirname, &#39;../collection.json&#39;);
+const collectionPath = path.join(__dirname, '../collection.json');
 
-describe(&#39;component&#39;, () =&gt; {
+describe('component', () => {
 
   // 选项 --name的值
-  const name = &#39;apple&#39;;
-  const runner = new SchematicTestRunner(&#39;schematics&#39;, collectionPath);
+  const name = 'apple';
+  const runner = new SchematicTestRunner('schematics', collectionPath);
 
   // 模拟ng new创建angular项目，主要对workspace和application进行配置
 
   // angular项目的配置
   const workspaceOptions: WorkspaceOptions = {
-    name: &#39;workspace&#39;,              // 不重要的名字，随意取，不影响测试结果
-    newProjectRoot: &#39;projects&#39;,     // 项目app的根目录，可以随意取，但是验证会用到
-    version: &#39;6.0.0&#39;,               // 版本号，随意，不影响测试
+    name: 'workspace',              // 不重要的名字，随意取，不影响测试结果
+    newProjectRoot: 'projects',     // 项目app的根目录，可以随意取，但是验证会用到
+    version: '6.0.0',               // 版本号，随意，不影响测试
   };
   const appOptions: ApplicationOptions = {
-    name: &#39;component&#39;,              // 项目名称
+    name: 'component',              // 项目名称
     inlineStyle: false,             // 以下是项目属性，随意true/false，不影响测试结果
     inlineTemplate: false,
     routing: false,
@@ -308,15 +335,15 @@ describe(&#39;component&#39;, () =&gt; {
   // 调用 SchematicTestRunner 的 runExternalSchematicAsync 方法，并以给出的参数生成angular项目
   let appTree: UnitTestTree;
 
-  beforeEach(async () =&gt; {
+  beforeEach(async () => {
     appTree = await runner.runExternalSchematicAsync(
-      &#39;@schematics/angular&#39;,
-      &#39;workspace&#39;,
+      '@schematics/angular',
+      'workspace',
       workspaceOptions
     ).toPromise();
     appTree = await runner.runExternalSchematicAsync(
-      &#39;@schematics/angular&#39;,
-      &#39;application&#39;,
+      '@schematics/angular',
+      'application',
       appOptions,
       appTree
     ).toPromise();
@@ -324,10 +351,10 @@ describe(&#39;component&#39;, () =&gt; {
 
 
   // 最基本的判断,如果生成的文件名和预期生成的文件名一致,就验证成功
-  it(&#39;works&#39;, async () =&gt; {
+  it('works', async () => {
 
     // runSchematicAsync()参数：项目名、参数、Tree
-    const tree = await runner.runSchematicAsync(&#39;component&#39;, { name }, appTree).toPromise();
+    const tree = await runner.runSchematicAsync('component', { name }, appTree).toPromise();
 
     const dasherizeName = strings.dasherize(name);
 
@@ -342,7 +369,7 @@ describe(&#39;component&#39;, () =&gt; {
 
     // 如果实际模拟的angular项目中拥有预期生成的文件,则将它从expectFiles中移除
     for (const v of tree.files) {
-      for (let i = 0; i &lt; expectFiles.length; i++) {
+      for (let i = 0; i < expectFiles.length; i++) {
         const e = expectFiles[i];
         if (v.toString() === e) {
           expectFiles.splice(i, 1);
@@ -356,12 +383,12 @@ describe(&#39;component&#39;, () =&gt; {
 });</code></pre><p>运行测试用例就很简单了，直接<code>npm run test</code>，如果测试成功，终端应该如下输出：</p>
 <pre><code>david@ubuntu:~/TTT/angular-schematics-tutorial$ npm run test
 
-&gt; angular-schematics-tutorial@0.0.0 test /home/david/TTT/angular-schematics-tutorial
-&gt; npm run build &amp;&amp; jasmine src/**/*_spec.js
+> angular-schematics-tutorial@0.0.0 test /home/david/TTT/angular-schematics-tutorial
+> npm run build && jasmine src/**/*_spec.js
 
 
-&gt; angular-schematics-tutorial@0.0.0 build /home/david/TTT/angular-schematics-tutorial
-&gt; tsc -p tsconfig.json
+> angular-schematics-tutorial@0.0.0 build /home/david/TTT/angular-schematics-tutorial
+> tsc -p tsconfig.json
 
 Randomized with seed 66156
 Started
@@ -381,7 +408,7 @@ CREATE /src/app/comp/apple/apple.component.spec.ts (755 bytes)
 CREATE /src/app/comp/apple/apple.component.ts (607 bytes)
 david@ubuntu:~/TTT/angular-demo$</code></pre><p>简单说明：<br><strong>其中指令 –debug=false 是为了实际生成文件，如果不加这一句，不会生成实际的文件。</strong><br>因为没有直接输入<code>--name=comp/apple</code>或者直接<code>comp/apple</code>,所以出现了输入提示语。直接输入 <code>schematics ../angular-schematics-tutorial/src/collection.json:component --name=comp/apple --debug=false</code>则不会出现提示语。</p>
 <p>注意：如果已有同位置同名文件，再次生成会报错，提示<code>already exists.</code>。</p>
-<p>我们查看生成的 component 组件模块内容：<br><img alt="生成的componet组件内容" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E7%94%9F%E6%88%90%E7%9A%84component%E7%BB%84%E4%BB%B6%E5%85%A7%E5%AE%B9.png" class="lazyload"></p>
+<p>我们查看生成的 component 组件模块内容：<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E7%94%9F%E6%88%90%E7%9A%84component%E7%BB%84%E4%BB%B6%E5%85%A7%E5%AE%B9.png" alt="生成的componet组件内容"></p>
 <p>可以看到，文件有实际生成，模板内容有被替换。</p>
 <p>恭喜，如果到这里都正确，那么已经完成了自定义原理图的制作和使用了。</p>
 <p>所以，想要生成一个具有 CRUD 函数的 service 步骤效果就是一样的，不再赘述，具体可参看代码。</p>
@@ -398,34 +425,34 @@ david@ubuntu:~/TTT/angular-demo$</code></pre><p>简单说明：<br><strong>其�
 <p>但是实际上，这个能够直接使用 ng add 也是应该这个需要添加的库，内部实现了对此原理图的功能。</p>
 <p>举个例子，众所周知，angular material 可以直接使用 ng add 添加到已有的 angular 专案。执行<code>ng add @angular/material</code>。</p>
 <p>效果如下：</p>
-<p><img alt="添加angular material到angular项目" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E6%B7%BB%E5%8A%A0angular-material%E5%88%B0%E9%A1%B9%E7%9B%AE.gif" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E6%B7%BB%E5%8A%A0angular-material%E5%88%B0%E9%A1%B9%E7%9B%AE.gif" alt="添加angular material到angular项目"></p>
 <p>但是，如果我想添加 Font Awesome 到 angular 项目，你就需要</p>
 <pre><code>npm install @fortawesome/fontawesome-svg-core
 npm install @fortawesome/free-solid-svg-icons
-npm install @fortawesome/angular-fontawesome@&lt;version&gt;</code></pre><p>然后手动引入模块,声明使用等等操作。</p>
+npm install @fortawesome/angular-fontawesome@<version></code></pre><p>然后手动引入模块,声明使用等等操作。</p>
 <p>为什么不能使用 ng add？<br>你看：  </p>
-<p><img alt="沒有schematics的库只执行了安裝" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E6%B2%92%E6%9C%89schematics%E7%9A%84%E5%BA%93%E5%8F%AA%E6%89%A7%E8%A1%8C%E4%BA%86%E5%AE%89%E8%A3%9D.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/%E6%B2%92%E6%9C%89schematics%E7%9A%84%E5%BA%93%E5%8F%AA%E6%89%A7%E8%A1%8C%E4%BA%86%E5%AE%89%E8%A3%9D.png" alt="沒有schematics的库只执行了安裝"></p>
 <p>font awesome 不支持直接的 ng add,因为 package 中没有实现导入等作业，所以只执行了安装。</p>
 <p>所以本节的目标，就是编写一个原理图，实现 ng add 的时候<br>1、一次性安装以上 3 个 package，<br>2、在 app.module.ts 中引入 FontAwesomeModule<br>3、在 app.component.ts 声明并在 app.component.html 实例化。</p>
 <h2 id="创建-ng-add-的-schema-json-并配置"><a href="#创建-ng-add-的-schema-json-并配置" class="headerlink" title="创建 ng add 的 schema.json 并配置"></a>创建 ng add 的 schema.json 并配置</h2><p>在与之前 component 文件夹同级的路径下，创建 ng-add 文件夹。</p>
 <p>在 ng-add 文件夹下创建 schema.json 文件，并编写如下内容：</p>
 <pre><code>{
-    &quot;$schema&quot;: &quot;http://json-schema.org/schema&quot;,
-    &quot;id&quot;: &quot;NgAddSchema&quot;,
-    &quot;title&quot;: &quot;Ng-Add Schema&quot;,
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;description&quot;: &quot;给angular项目添加 Font-Awesome。&quot;,
-    &quot;properties&quot;: {
-        &quot;project&quot;: {
-            &quot;type&quot;: &quot;string&quot;,
-            &quot;description&quot;: &quot;给angular项目添加 Font-Awesome。&quot;
+    "$schema": "http://json-schema.org/schema",
+    "id": "NgAddSchema",
+    "title": "Ng-Add Schema",
+    "type": "object",
+    "description": "给angular项目添加 Font-Awesome。",
+    "properties": {
+        "project": {
+            "type": "string",
+            "description": "给angular项目添加 Font-Awesome。"
         }
     }
 }</code></pre><p>在 collection.json 中的 “schematics”添加子项，内容如下：</p>
-<pre><code>&quot;ng-add&quot;: {
-  &quot;description&quot;: &quot;给angular项目中添加 Font-Awesome库。&quot;,
-  &quot;factory&quot;: &quot;./ng-add&quot;,
-  &quot;schema&quot;: &quot;./ng-add/schema.json&quot;
+<pre><code>"ng-add": {
+  "description": "给angular项目中添加 Font-Awesome库。",
+  "factory": "./ng-add",
+  "schema": "./ng-add/schema.json"
 }</code></pre><p>注意名称保持 ng-add。</p>
 <h2 id="生成并导出-schema-d-ts-文件"><a href="#生成并导出-schema-d-ts-文件" class="headerlink" title="生成并导出 schema.d.ts 文件"></a>生成并导出 schema.d.ts 文件</h2><p>schema.d.ts 文件内容大概如下：</p>
 <pre><code>/**
@@ -438,22 +465,22 @@ export interface NgAddSchema {
      */
     project?: string;
 }</code></pre><h2 id="编写规则工厂实现逻辑代码"><a href="#编写规则工厂实现逻辑代码" class="headerlink" title="编写规则工厂实现逻辑代码"></a>编写规则工厂实现逻辑代码</h2><p>在文件夹 ng-add 下新建 index.ts 文件，并写入以下代码：</p>
-<pre><code>import { Rule, SchematicContext, Tree, SchematicsException } from &#39;@angular-devkit/schematics&#39;;
-import { buildDefaultPath } from &#39;@schematics/angular/utility/project&#39;;
-import { NodePackageInstallTask } from &#39;@angular-devkit/schematics/tasks&#39;;
-import { NgAddSchema } from &#39;./schema&#39;;
-import { addImportToModule } from &#39;@schematics/angular/utility/ast-utils&#39;;
-import { InsertChange } from &#39;@schematics/angular/utility/change&#39;;
+<pre><code>import { Rule, SchematicContext, Tree, SchematicsException } from '@angular-devkit/schematics';
+import { buildDefaultPath } from '@schematics/angular/utility/project';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { NgAddSchema } from './schema';
+import { addImportToModule } from '@schematics/angular/utility/ast-utils';
+import { InsertChange } from '@schematics/angular/utility/change';
 
-import * as ts from &#39;@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript&#39;;
+import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 
 export default function (_options: NgAddSchema): Rule {
-    return (_tree: Tree, _context: SchematicContext) =&gt; {
+    return (_tree: Tree, _context: SchematicContext) => {
 
         // 如果不是 Angular 项目则抛出错误
-        const workspaceConfigBuffer = _tree.read(&#39;angular.json&#39;);
+        const workspaceConfigBuffer = _tree.read('angular.json');
         if (!workspaceConfigBuffer) {
-            throw new SchematicsException(&#39;Not an Angular CLI workspace&#39;);
+            throw new SchematicsException('Not an Angular CLI workspace');
         }
 
         // 取得 project 的根目录
@@ -467,8 +494,8 @@ export default function (_options: NgAddSchema): Rule {
         const modulePath = `${defaultProjectPath}/app.module.ts`;
         const sourceFile = readIntoSourceFile(_tree, modulePath);
 
-        const importPath = &#39;@fortawesome/angular-fontawesome&#39;;
-        const moduleName = &#39;FontAwesomeModule&#39;;
+        const importPath = '@fortawesome/angular-fontawesome';
+        const moduleName = 'FontAwesomeModule';
         const declarationChanges = addImportToModule(sourceFile, modulePath, moduleName, importPath);
 
         const declarationRecorder = _tree.beginUpdate(modulePath);
@@ -486,38 +513,38 @@ export default function (_options: NgAddSchema): Rule {
         const componentSourceFile = readIntoSourceFile(_tree, componentPath);
 
         // 取得所有的 ImpotDeclaration
-        const allImports = componentSourceFile.statements.filter(node =&gt; ts.isImportDeclaration(node))! as ts.ImportDeclaration[];
+        const allImports = componentSourceFile.statements.filter(node => ts.isImportDeclaration(node))! as ts.ImportDeclaration[];
 
         // 找到最后一个 ImpotDeclaration
         let lastImport: ts.Node | undefined;
         for (const importNode of allImports) {
-            if (!lastImport || importNode.getStart() &gt; lastImport.getStart()) {
+            if (!lastImport || importNode.getStart() > lastImport.getStart()) {
                 lastImport = importNode;
             }
         }
 
         // 找到 ClassDeclaration
-        const classDeclaration = componentSourceFile.statements.find(node =&gt; ts.isClassDeclaration(node))! as ts.ClassDeclaration;
+        const classDeclaration = componentSourceFile.statements.find(node => ts.isClassDeclaration(node))! as ts.ClassDeclaration;
 
         // 取得所有的 property
-        const allProperties = classDeclaration.members.filter(node =&gt; ts.isPropertyDeclaration(node))! as ts.PropertyDeclaration[];
+        const allProperties = classDeclaration.members.filter(node => ts.isPropertyDeclaration(node))! as ts.PropertyDeclaration[];
 
         // 取得最后一个 propery
         let lastProperty: ts.Node | undefined;
         for (const propertyNode of allProperties) {
-            if (!lastProperty || propertyNode.getStart() &gt; propertyNode.getStart()) {
+            if (!lastProperty || propertyNode.getStart() > propertyNode.getStart()) {
                 lastProperty = propertyNode;
             }
         }
 
         const componentRecorder = _tree.beginUpdate(componentPath);
-        const importFaCoffee = &#39;\nimport { faCoffee } from \&#39;@fortawesome/free-solid-svg-icons\&#39;;&#39;;
+        const importFaCoffee = '\nimport { faCoffee } from \'@fortawesome/free-solid-svg-icons\';';
         componentRecorder.insertLeft(lastImport!.end, importFaCoffee);
 
         // 添加声明部分的代码
-        const faCoffeeProperty = &#39;faCoffee = faCoffee;&#39;
-        const changeText = lastProperty ? lastProperty.getFullText() : &#39;&#39;;
-        let toInsert = &#39;&#39;;
+        const faCoffeeProperty = 'faCoffee = faCoffee;'
+        const changeText = lastProperty ? lastProperty.getFullText() : '';
+        let toInsert = '';
         if (changeText.match(/^\r?\r?\n/)) {
             toInsert = `${changeText.match(/^\r?\n\s*/)![0]}${faCoffeeProperty}`;
         } else {
@@ -533,9 +560,9 @@ export default function (_options: NgAddSchema): Rule {
 
         _tree.commitUpdate(componentRecorder);
 
-        //在 app.component.html 里面加上 &lt;fa-icon [icon]=&quot;faCoffee&quot;&gt;&lt;/fa-icon&gt; ：
+        //在 app.component.html 里面加上 <fa-icon [icon]="faCoffee"></fa-icon> ：
         const htmlPath = `${defaultProjectPath}/app.component.html`;
-        const htmlStr = `\n&lt;fa-icon [icon]=&quot;faCoffee&quot;&gt;&lt;/fa-icon&gt;\n`;
+        const htmlStr = `\n<fa-icon [icon]="faCoffee"></fa-icon>\n`;
         const htmlSourceFile = readIntoSourceFile(_tree, htmlPath);
         const htmlRecorder = _tree.beginUpdate(htmlPath);
         htmlRecorder.insertLeft(htmlSourceFile.end, htmlStr);
@@ -543,11 +570,11 @@ export default function (_options: NgAddSchema): Rule {
 
         // 修改 package.json
         const dependencies = [
-            { name: &#39;@fortawesome/fontawesome-svg-core&#39;, version: &#39;~1.2.25&#39; },
-            { name: &#39;@fortawesome/free-solid-svg-icons&#39;, version: &#39;~5.11.2&#39; },
-            { name: &#39;@fortawesome/angular-fontawesome&#39;, version: &#39;~0.5.0&#39; }
+            { name: '@fortawesome/fontawesome-svg-core', version: '~1.2.25' },
+            { name: '@fortawesome/free-solid-svg-icons', version: '~5.11.2' },
+            { name: '@fortawesome/angular-fontawesome', version: '~0.5.0' }
         ];
-        dependencies.forEach(dependency =&gt; {
+        dependencies.forEach(dependency => {
             addPackageToPackageJson(
                 _tree,
                 dependency.name,
@@ -559,7 +586,7 @@ export default function (_options: NgAddSchema): Rule {
         // 使用Angular Schematics 的 API - NodePackageInstallTask 。
         _context.addTask(
             new NodePackageInstallTask({
-                packageName: dependencies.map(d =&gt; d.name).join(&#39; &#39;)
+                packageName: dependencies.map(d => d.name).join(' ')
             })
         );
 
@@ -574,14 +601,14 @@ function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
     if (text === null) {
         throw new SchematicsException(`File ${modulePath} does not exist.`);
     }
-    const sourceText = text.toString(&#39;utf-8&#39;);
+    const sourceText = text.toString('utf-8');
     return ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
 }
 
 // 给package.json添加依赖包
 function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree {
-    if (host.exists(&#39;package.json&#39;)) {
-        const sourceText = host.read(&#39;package.json&#39;)!.toString(&#39;utf-8&#39;);
+    if (host.exists('package.json')) {
+        const sourceText = host.read('package.json')!.toString('utf-8');
         const json = JSON.parse(sourceText);
         if (!json.dependencies) {
             json.dependencies = {};
@@ -590,18 +617,18 @@ function addPackageToPackageJson(host: Tree, pkg: string, version: string): Tree
             json.dependencies[pkg] = version;
             json.dependencies = sortObjectByKeys(json.dependencies);
         }
-        host.overwrite(&#39;package.json&#39;, JSON.stringify(json, null, 2));
+        host.overwrite('package.json', JSON.stringify(json, null, 2));
     }
     return host;
 }
 
 // 对象key排序
 function sortObjectByKeys(obj: any) {
-    return Object.keys(obj).sort().reduce((result, key) =&gt; (result[key] = obj[key]) &amp;&amp; result, {} as any);
+    return Object.keys(obj).sort().reduce((result, key) => (result[key] = obj[key]) && result, {} as any);
 }</code></pre><p>代码不用细读，大约做了以下几件事：</p>
 <p>1、判断是不是 angular 项目<br>2、获取 angular.json 中参数配置<br>3、在 app.module.ts 中引入 FontAwesomeModule<br>4、在 app.component.ts 声明一个 Font<br>5、在 app.component.html 实例化。<br>6、修改模板项目 package.json 依赖列表，加入那 3 个库；<br>7、实现那 3 个库的安装。<br>……</p>
 <h2 id="测试并使用"><a href="#测试并使用" class="headerlink" title="测试并使用"></a>测试并使用</h2><p>如果需要写测试用例，那么可以 ng-add 文件夹下添加 index_spec.ts 并写代码(可参看源码)</p>
-<p>直接在 angular 项目中实践：<br><img alt="ng add的效果" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/ngadd%E7%9A%84%E6%95%88%E6%9E%9C.png" class="lazyload"></p>
+<p>直接在 angular 项目中实践：<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/ngadd%E7%9A%84%E6%95%88%E6%9E%9C.png" alt="ng add的效果"></p>
 <p>如果到这里都正常，那么恭喜你，自定义原理库实现 ng add 也成功了！</p>
 <h1 id="angular-schematics-实现-ng-update-更新模块时修改指定组件内容"><a href="#angular-schematics-实现-ng-update-更新模块时修改指定组件内容" class="headerlink" title="angular schematics 实现 ng update 更新模块时修改指定组件内容"></a>angular schematics 实现 ng update 更新模块时修改指定组件内容</h1><p>上面 2 节分别实现了 ng generator 和 ng add，那么接下来就是 ng update 了。<br>关于 angular schematics 自定义 ng update 的实践目前网上找的示例都比较少，还不是很清晰。我们这里也会做个实例，但是不会深究。</p>
 <p>ng update 有什么用？</p>
@@ -613,27 +640,26 @@ function sortObjectByKeys(obj: any) {
 <p>ng update [options]</p>
 </blockquote>
 <p>一般的，如果你的 angular 项目是老旧版本的，运行<code>ng update</code>指令，可能就会出现类似以下的内容：</p>
-<pre><code>Using package manager: &#39;npm&#39;
+<pre><code>Using package manager: 'npm'
 Collecting installed dependencies...
 Found 33 dependencies.
     We analyzed your package.json, there are some packages to update:
 
       Name                               Version                  Command to update
      --------------------------------------------------------------------------------
-      @angular/cdk                       8.1.4 -&gt; 8.2.3           ng update @angular/cdk
-      @angular/cli                       8.3.0 -&gt; 8.3.20          ng update @angular/cli
-      @angular/core                      8.2.3 -&gt; 8.2.14          ng update @angular/core
-      @angular/material                  8.1.4 -&gt; 8.2.3           ng update @angular/material
-      rxjs                               6.4.0 -&gt; 6.5.3           ng update rxjs
+      @angular/cdk                       8.1.4 -> 8.2.3           ng update @angular/cdk
+      @angular/cli                       8.3.0 -> 8.3.20          ng update @angular/cli
+      @angular/core                      8.2.3 -> 8.2.14          ng update @angular/core
+      @angular/material                  8.1.4 -> 8.2.3           ng update @angular/material
+      rxjs                               6.4.0 -> 6.5.3           ng update rxjs
 </code></pre><p>大家可以仔细看看，这份分析结果说明了什么？<br>一共有 33 个依赖，但是只有 5 个可以使用 ng update 升级？<br>从哪里看出哪些依赖能用 ng update 升级？各个依赖包的 package.json</p>
 <p>ug update 的原理逻辑还是比较复杂了，其实直接看 angular-cli 的升级，比较容易看出端倪。</p>
-<p>访问<code>https://github.com/angular/angular-cli/tree/master/packages/schematics/angular/migrations</code>，  
-查看 migration-collection.json 文件，随意选一个，例如以下：</p>
+<p>访问<code>https://github.com/angular/angular-cli/tree/master/packages/schematics/angular/migrations</code>，<br>查看 migration-collection.json 文件，随意选一个，例如以下：</p>
 <pre><code>// 上略
-   &quot;migration-07&quot;: {
-      &quot;version&quot;: &quot;8.0.0-beta.12&quot;,
-      &quot;factory&quot;: &quot;./update-8&quot;,
-      &quot;description&quot;: &quot;Update an Angular CLI project to version 8.&quot;
+   "migration-07": {
+      "version": "8.0.0-beta.12",
+      "factory": "./update-8",
+      "description": "Update an Angular CLI project to version 8."
     },
 // 下略</code></pre><p>看起来大概意思就是，ug update 将 angular 升级到 8.0.0-beta.12 版本时，就会执行<code>migration-07</code>的升级相关命令，其工厂函数内容就在 update-8 的文件夹中。</p>
 <p>有兴致可以细研究 ng update 到 8.0.0-beta.12 具体做了什么。我们只需要简单知道<code>migration-07</code>他会依照相关规则去执行一些动作。</p>
@@ -646,32 +672,32 @@ Found 33 dependencies.
 <p>不过，依照我的简单总结，使用 ng update 升级，其实有几点要做：</p>
 <h2 id="创建-migration-json-文件"><a href="#创建-migration-json-文件" class="headerlink" title="创建 migration.json 文件"></a>创建 migration.json 文件</h2><p>在 src/文件夹下，与 collection.json 同级目录，新建 migration.json 文件(名字虽然不限制，但是以便识别)，并写入以下内容：</p>
 <pre><code>{
-    &quot;$schema&quot;: &quot;../node_modules/@angular-devkit/schematics/collection-schema.json&quot;,
-    &quot;schematics&quot;: {
-        &quot;migration002&quot;: {
-            &quot;version&quot;: &quot;0.0.2&quot;,
-            &quot;description&quot;: &quot;更新angular-schematics-tutorial到0.0.2版本时执行的更新&quot;,
-            &quot;factory&quot;: &quot;./ng-update/index#update&quot;
+    "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "migration002": {
+            "version": "0.0.2",
+            "description": "更新angular-schematics-tutorial到0.0.2版本时执行的更新",
+            "factory": "./ng-update/index#update"
         }
     }
 }</code></pre><p>此份说明，当后续把这个 schematics 项目打包之后，其他 angular 项目中使用了这个包，升级到 0.0.2 版本时，就要执行在/ng-update/index.ts 文件中的逻辑规则更新代码了。</p>
 <h2 id="在-package-json-中声明-ug-update-配置"><a href="#在-package-json-中声明-ug-update-配置" class="headerlink" title="在 package.json 中声明 ug-update 配置"></a>在 package.json 中声明 ug-update 配置</h2><p>在 package.json 中，添加以下项目：</p>
-<pre><code>  &quot;ng-update&quot;: {
-    &quot;migrations&quot;: &quot;./src/migration.json&quot;
+<pre><code>  "ng-update": {
+    "migrations": "./src/migration.json"
   },</code></pre><p>其作用，就是在执行 ng update 时，能够找到对应的配置文件</p>
-<h2 id="编写更新执行的规则工厂逻辑代码"><a href="#编写更新执行的规则工厂逻辑代码" class="headerlink" title="编写更新执行的规则工厂逻辑代码"></a>编写更新执行的规则工厂逻辑代码</h2><p>因为只是简单示例，我简单的实现，如果把此 angular-schematics-tutorial 包升级到了 0.0.2 版本，那么一并更新 app.component.ts 里面的 title 变量的值，为<code>AngularSchematicsTutorial002</code>，如果在我之前使用的测试 angular-demo 中运行，可以先看到，目前的 title 值应该是<code>title = &#39;angular-demo&#39;;</code>。</p>
+<h2 id="编写更新执行的规则工厂逻辑代码"><a href="#编写更新执行的规则工厂逻辑代码" class="headerlink" title="编写更新执行的规则工厂逻辑代码"></a>编写更新执行的规则工厂逻辑代码</h2><p>因为只是简单示例，我简单的实现，如果把此 angular-schematics-tutorial 包升级到了 0.0.2 版本，那么一并更新 app.component.ts 里面的 title 变量的值，为<code>AngularSchematicsTutorial002</code>，如果在我之前使用的测试 angular-demo 中运行，可以先看到，目前的 title 值应该是<code>title = 'angular-demo';</code>。</p>
 <p>在 component 同级文件夹路径下新建 ng-update 文件夹，并添加 index.ts 文件，并添加以下代码：</p>
-<pre><code>import { Rule, Tree, SchematicContext, SchematicsException } from &#39;@angular-devkit/schematics&#39;;
-import { buildDefaultPath } from &#39;@schematics/angular/utility/project&#39;;
-import * as ts from &#39;typescript&#39;;
+<pre><code>import { Rule, Tree, SchematicContext, SchematicsException } from '@angular-devkit/schematics';
+import { buildDefaultPath } from '@schematics/angular/utility/project';
+import * as ts from 'typescript';
 
 export function update(): Rule {
-    return (_tree: Tree, _context: SchematicContext) =&gt; {
+    return (_tree: Tree, _context: SchematicContext) => {
 
         // 解析angular项目
-        const workspaceConfigBuffer = _tree.read(&#39;angular.json&#39;);
+        const workspaceConfigBuffer = _tree.read('angular.json');
         if (!workspaceConfigBuffer) {
-            throw new SchematicsException(&#39;Not an Angular CLI workspace&#39;);
+            throw new SchematicsException('Not an Angular CLI workspace');
         }
 
         const workspaceConfig = JSON.parse(workspaceConfigBuffer.toString());
@@ -684,9 +710,9 @@ export function update(): Rule {
         const componentSourceFile = readIntoSourceFile(_tree, componentPath);
 
         // 找出 title 变量
-        const classDeclaration = componentSourceFile.statements.find(node =&gt; ts.isClassDeclaration(node))! as ts.ClassDeclaration;
-        const allProperties = classDeclaration.members.filter(node =&gt; ts.isPropertyDeclaration(node))! as ts.PropertyDeclaration[];
-        const titleProperty = allProperties.find(node =&gt; node.name.getText() === &#39;title&#39;);
+        const classDeclaration = componentSourceFile.statements.find(node => ts.isClassDeclaration(node))! as ts.ClassDeclaration;
+        const allProperties = classDeclaration.members.filter(node => ts.isPropertyDeclaration(node))! as ts.PropertyDeclaration[];
+        const titleProperty = allProperties.find(node => node.name.getText() === 'title');
 
         // 如果有找到 title 变量，则修改它的值
         if (titleProperty) {
@@ -695,7 +721,7 @@ export function update(): Rule {
             const componentRecorder = _tree.beginUpdate(componentPath);
             const startPos = initialLiteral.getStart();
             componentRecorder.remove(startPos, initialLiteral.getWidth());
-            componentRecorder.insertRight(startPos, &#39;\&#39;AngularSchematicsTutorial002\&#39;&#39;);
+            componentRecorder.insertRight(startPos, '\'AngularSchematicsTutorial002\'');
 
             _tree.commitUpdate(componentRecorder);
         }
@@ -709,7 +735,7 @@ function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
     if (text === null) {
         throw new SchematicsException(`File ${modulePath} does not exist.`);
     }
-    const sourceText = text.toString(&#39;utf-8&#39;);
+    const sourceText = text.toString('utf-8');
     return ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
 }</code></pre><p>内容可不细看，就是找到 angular 项目中的 app.component.ts，把 title 的值改为 AngularSchematicsTutorial002。</p>
 <h2 id="测试并使用-1"><a href="#测试并使用-1" class="headerlink" title="测试并使用"></a>测试并使用</h2><p>当然，再次在 ng-update/index.ts 下创建 index_spec.ts 编写测试用例也是 ok 的，源代码中会给出。<br>若不用这个麻烦，可以直接在之前的 angular-demo 专案的测试，不过因为是相对路径，则不能直接使用 ng update 了，因为它不知道去哪里判断是不是新版本的更新。</p>
@@ -717,7 +743,7 @@ function readIntoSourceFile(host: Tree, modulePath: string): ts.SourceFile {
 <pre><code>schematics ../angular-schematics-tutorial/src/migration.json:migration002 --debug=false</code></pre><p>执行之后，应该会得到以下结果：</p>
 <pre><code>david@ubuntu:~/TTT/angular-demo$ schematics ../angular-schematics-tutorial/src/migration.json:migration002 --debug=false
 UPDATE /src/app/app.component.ts (318 bytes)
-david@ubuntu:~/TTT/angular-demo$</code></pre><p>并且，app.component.ts 中<code>title = &#39;angular-demo&#39;;</code>变成了<code>title = &#39;AngularSchematicsTutorial002&#39;;</code></p>
+david@ubuntu:~/TTT/angular-demo$</code></pre><p>并且，app.component.ts 中<code>title = 'angular-demo';</code>变成了<code>title = 'AngularSchematicsTutorial002';</code></p>
 <p>如果能够运行成功，说明 angular schematics 构建 ng update 原理图也学习完成。</p>
 <h1 id="将原理图-package-发布并使用"><a href="#将原理图-package-发布并使用" class="headerlink" title="将原理图 package 发布并使用"></a>将原理图 package 发布并使用</h1><p>以上在执行时，都是使用相对路径在项目中运行，一点都不专业？那么我们可以把这个 schematics 工具包发布，后续直接使用 ng 指令运行。</p>
 <h2 id="使用-npm-link-本地调试"><a href="#使用-npm-link-本地调试" class="headerlink" title="使用 npm link 本地调试"></a>使用 npm link 本地调试</h2><p>可以在我们的 angular-schematics-tutorial 项目目录下，运行<code>npm link</code>指令。<br>npm link 指令细节可参看<a href="https://docs.npmjs.com/cli/link.html" target="_blank" rel="noopener">https://docs.npmjs.com/cli/link.html</a><br>。主要作用就是创建一个全局可访问链接符号。<br>执行之后得到的效果应该如下：</p>
@@ -727,11 +753,11 @@ npm WARN angular-schematics-tutorial@0.0.2 No repository field.
 audited 78 packages in 1.031s
 found 0 vulnerabilities
 
-/home/david/.nvm/versions/node/v12.6.0/lib/node_modules/angular-schematics-tutorial -&gt; /home/david/TTT/angular-schematics-tutorial
+/home/david/.nvm/versions/node/v12.6.0/lib/node_modules/angular-schematics-tutorial -> /home/david/TTT/angular-schematics-tutorial
 david@ubuntu:~/TTT/angular-schematics-tutorial$</code></pre><p>然后在模板 angular 项目中，链接刚刚的全局 angular-schematics-tutorial 链接。<br><code>npm link angular-schematics-tutorial</code>，相当于在当前项目安装了之前 link 的包，然后就可以在 angular 项目中直接使用 ng g <collection> 或 ng add <collection>了。</collection></collection></p>
 <p>例如在 angular-demo 项目中 link angular-schematics-tutorial ，应该如下：</p>
 <pre><code>david@ubuntu:~/TTT/angular-demo$ npm link angular-schematics-tutorial
-/home/david/TTT/angular-demo/node_modules/angular-schematics-tutorial -&gt; /home/david/.nvm/versions/node/v12.6.0/lib/node_modules/angular-schematics-tutorial -&gt; /home/david/TTT/angular-schematics-tutorial
+/home/david/TTT/angular-demo/node_modules/angular-schematics-tutorial -> /home/david/.nvm/versions/node/v12.6.0/lib/node_modules/angular-schematics-tutorial -> /home/david/TTT/angular-schematics-tutorial
 david@ubuntu:~/TTT/angular-demo$</code></pre><p>然后使用 ng generator：</p>
 <pre><code>david@ubuntu:~/TTT/angular-demo$ ng g angular-schematics-tutorial:component
 ? 你想创建的component的名字: comp/pie
@@ -751,7 +777,7 @@ npm WARN axobject-query@2.1.1 requires a peer of eslint@^5 || ^6 but none is ins
 ……
 省略了一些npm WARN
 ……
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.1.2: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;linux&quot;,&quot;arch&quot;:&quot;x64&quot;})
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.1.2: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
 + @fortawesome/free-solid-svg-icons@5.11.2
 + @fortawesome/fontawesome-svg-core@1.2.25
@@ -792,43 +818,43 @@ npm notice total files:   34
 npm notice
 + angular-schematics-tutorial@0.0.1
 david@ubuntu:~/TTT/angular-schematics-tutorial$</code></pre><p>那么没有添加 ng update 的 0.0.1 版本就发布了，可以在 npmjs 网站自己的账户下查看自己发布的包。</p>
-<h3 id="发布-0-0-2-版本的包"><a href="#发布-0-0-2-版本的包" class="headerlink" title="发布 0.0.2 版本的包"></a>发布 0.0.2 版本的包</h3><p>重复以上动作(npm publish)，把 angular-schematics-tutorial 的 0.0.2 版本的包也发布了，那么就可以看到自己两个版本的包了。<br><img alt="npmjs下自己发布的包" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/npmjs%E8%87%AA%E5%B7%B1%E5%8F%91%E5%B8%83%E7%9A%84%E5%8C%85.png" class="lazyload"></p>
+<h3 id="发布-0-0-2-版本的包"><a href="#发布-0-0-2-版本的包" class="headerlink" title="发布 0.0.2 版本的包"></a>发布 0.0.2 版本的包</h3><p>重复以上动作(npm publish)，把 angular-schematics-tutorial 的 0.0.2 版本的包也发布了，那么就可以看到自己两个版本的包了。<br><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/npmjs%E8%87%AA%E5%B7%B1%E5%8F%91%E5%B8%83%E7%9A%84%E5%8C%85.png" alt="npmjs下自己发布的包"></p>
 <h3 id="实际测试使用"><a href="#实际测试使用" class="headerlink" title="实际测试使用"></a>实际测试使用</h3><p>现在，我们的 angular-schematics-tutorial 就是一个可以被所有人访问的原理图工具包了，那么我们就可以像实际使用包一样去测试它了。</p>
 <p>为了避免干扰，可以删除之前的 angular-demo 测试项目，新建一个 angular-test 的新项目</p>
 <pre><code>ng new angular-test</code></pre><p>我们先测试 ug update 的效果。</p>
 <p>先安装 0.0.1 版本：</p>
 <pre><code>npm i angular-schematics-tutorial@0.0.1</code></pre><p>然后运行<code>ng update</code>指令，应该看到以下内容</p>
 <pre><code>david@ubuntu:~/TTT/angular-test$ ng update
-Using package manager: &#39;npm&#39;
+Using package manager: 'npm'
 Collecting installed dependencies...
 Found 31 dependencies.
     We analyzed your package.json, there are some packages to update:
 
       Name                               Version                  Command to update
      --------------------------------------------------------------------------------
-      angular-schematics-tutorial        0.0.1 -&gt; 0.0.2           ng update angular-schematics-tutorial
-      rxjs                               6.4.0 -&gt; 6.5.3           ng update rxjs
+      angular-schematics-tutorial        0.0.1 -> 0.0.2           ng update angular-schematics-tutorial
+      rxjs                               6.4.0 -> 6.5.3           ng update rxjs
 david@ubuntu:~/TTT/angular-test$</code></pre><p>现在，我们可以直接使用 ng update 去升级我们的工具包了。<br><strong>注意：使用 ng update 升级前，要提交所有变更。</strong><br>运行<code>ng update angular-schematics-tutorial</code>，注意查看 app.component.ts 中 title 变量是否变化：</p>
 <pre><code>david@ubuntu:~/TTT/angular-test$ ng update angular-schematics-tutorial
-Using package manager: &#39;npm&#39;
+Using package manager: 'npm'
 Collecting installed dependencies...
 Found 31 dependencies.
 Fetching dependency metadata from registry...
-    Updating package.json with dependency angular-schematics-tutorial @ &quot;0.0.2&quot; (was &quot;0.0.1&quot;)...
+    Updating package.json with dependency angular-schematics-tutorial @ "0.0.2" (was "0.0.1")...
 UPDATE package.json (1329 bytes)
 npm WARN axobject-query@2.1.1 requires a peer of eslint@^5 || ^6 but none is installed. You must install peer
 ……
 省略一些npm WARN
 ……
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.1.2: wanted {&quot;os&quot;:&quot;darwin&quot;,&quot;arch&quot;:&quot;any&quot;} (current: {&quot;os&quot;:&quot;linux&quot;,&quot;arch&quot;:&quot;x64&quot;})
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.1.2: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
 updated 1 package and audited 18955 packages in 8.615s
 found 0 vulnerabilities
 
-    ** Executing migrations for package &#39;angular-schematics-tutorial&#39; **
+    ** Executing migrations for package 'angular-schematics-tutorial' **
 UPDATE src/app/app.component.ts (233 bytes)
 david@ubuntu:~/TTT/angular-test$</code></pre><p>从最后一行，看到，应该是修改了，实际也如此。</p>
-<p><img alt="ngupdate成功" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/ngupdate%E6%88%90%E5%8A%9F.png" class="lazyload"></p>
+<p><img src= "/img/loading.gif" data-src="/../images/TechnicalEssays/angular-schematics-tutorial/screenshots/ngupdate%E6%88%90%E5%8A%9F.png" alt="ngupdate成功"></p>
 <p>其他的 ng generator 的原理图和 ng add 的原理图也是可以的，可以自行测试。<br>例如：<code>ng g angular-schematics-tutorial:crudService</code>或者<code>ng add angular-schematics-tutorial</code></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>花费了如此大量的篇幅，基本上讲清楚了 angular schematics 的基本使用内容。虽然看起来很鸡肋，但是如果是 angular 技术栈并且长期有重复大量相同工作的开发，不免可以试一下使用它来重构下作业流程。虽然不一定比 ctrl+c ctrl+v 快，但是至少逼格更高了。</p>
 <p>总结一下使用 angular schematics 的步骤重点。</p>
@@ -836,26 +862,32 @@ david@ubuntu:~/TTT/angular-test$</code></pre><p>从最后一行，看到，应�
 <p>添加 ng update<br>1、创建并编写 migration.json 文件；<br>2、在 package.json 中声明 ug-update 配置；<br>3、编写更新执行的规则工厂逻辑代码；<br>4、测试并使用。</p>
 <p>以上内容亲测有效，有问题可提出交流，谢谢。</p>
 <p>主要参考：<br><a href="https://ithelp.ithome.com.tw/articles/10222826" target="_blank" rel="noopener">https://ithelp.ithome.com.tw/articles/10222826</a><br><a href="https://medium.com/@tomastrajan/total-guide-to-custom-angular-schematics-5c50cf90cdb4" target="_blank" rel="noopener">https://medium.com/@tomastrajan/total-guide-to-custom-angular-schematics-5c50cf90cdb4</a><br>和 angular 官方文档：<a href="https://angular.cn/guide/schematics" target="_blank" rel="noopener">https://angular.cn/guide/schematics</a></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/">http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/angular/">angular    </a><a class="post-meta__tags" href="/tags/schematics/">schematics    </a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/angular-schematics-tutorial/angular-schematics.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/12/15/OrdinaryArticles/Essay/03ReadyForConsequence/"><img class="prev_cover lazyload" data-src="/../images/OrdinaryArticles/Essay/03ReadyForConsequence/即便沉思也需面对.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>有些事来不及准备，但还是得面对</span></div></a></div><div class="next-post pull_right"><a href="/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/"><img class="next_cover lazyload" data-src="/../images/other/programming.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>只言片语——angular material input输入框可以辅助下拉选择</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/12/18/TechnicalEssays/angular-i18n-demo/" title="Angular i18n使用说明"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/angular-i18n-demo/新建注册组件.png"><div class="relatedPosts_title">Angular i18n使用说明</div></a></div><div class="relatedPosts_item"><a href="/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/" title="只言片语——angular material input输入框可以辅助下拉选择"><img class="relatedPosts_cover lazyload" data-src="/../images/other/programming.png"><div class="relatedPosts_title">只言片语——angular material input输入框可以辅助下拉选择</div></a></div><div class="relatedPosts_item"><a href="/2019/12/12/TechnicalEssays/snippets-angular-ngfor/" title="只言片语——angular ngFor遍历显示2个数组值"><img class="relatedPosts_cover lazyload" data-src="/../images/other/programming.png"><div class="relatedPosts_title">只言片语——angular ngFor遍历显示2个数组值</div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
-var verify = false == true ? true : false;
-var GUEST_INFO = ['nick','mail','link'];
-var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-  return GUEST_INFO.indexOf(item) > -1
-});
-guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+</body></html></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/">http://swmlee.com/2019/12/12/TechnicalEssays/angular-schematics-tutorial/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com" target="_blank">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/angular/">angular</a><a class="post-meta__tags" href="/tags/schematics/">schematics</a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/12/15/OrdinaryArticles/Essay/03ReadyForConsequence/"><img class="prev-cover" data-src="/../images/OrdinaryArticles/Essay/03ReadyForConsequence/%E5%8D%B3%E4%BE%BF%E6%B2%89%E6%80%9D%E4%B9%9F%E9%9C%80%E9%9D%A2%E5%AF%B9.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">有些事来不及准备，但还是得面对</div></div></a></div><div class="next-post pull-right"><a href="/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/"><img class="next-cover" data-src="/../images/other/programming.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">只言片语——angular material input输入框可以辅助下拉选择</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/12/18/TechnicalEssays/angular-i18n-demo/" title="Angular i18n使用说明"><img class="relatedPosts_cover" data-src="/../images/TechnicalEssays/angular-i18n-demo/新建注册组件.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-18 22:32:47</div><div class="relatedPosts_title">Angular i18n使用说明</div></div></a></div><div class="relatedPosts_item"><a href="/2019/12/12/TechnicalEssays/snippets-angular-ngfor/" title="只言片语——angular ngFor遍历显示2个数组值"><img class="relatedPosts_cover" data-src="/../images/other/programming.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-12 19:48:43</div><div class="relatedPosts_title">只言片语——angular ngFor遍历显示2个数组值</div></div></a></div><div class="relatedPosts_item"><a href="/2019/12/12/TechnicalEssays/snippets-angular-input-with-select/" title="只言片语——angular material input输入框可以辅助下拉选择"><img class="relatedPosts_cover" data-src="/../images/other/programming.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-12 19:50:49</div><div class="relatedPosts_title">只言片语——angular material input输入框可以辅助下拉选择</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail'],'nick,mail')
 
 window.valine = new Valine({
   el:'#vcomment',
-  notify:notify,
-  verify:verify,
-  appId:'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
-  appKey:'fVjXSYoOkStdcmUSqWYgyCgK',
-  placeholder:'留个言吧 (^_^)',
-  avatar:'monsterid',
-  guest_info:guest_info,
-  pageSize:'10',
-  lang:'en',
-  recordIP: true
-});</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
-</script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
+  appId: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey: 'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder: '留个言吧 (^_^)',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'en',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/local-search.js"></script></body></html>
