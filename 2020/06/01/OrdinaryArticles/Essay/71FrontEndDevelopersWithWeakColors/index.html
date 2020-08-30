@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>红绿色盲+色弱的前端开发者？ | 知己识人</title><meta name="description" content="说起来今天是六一儿童节，隔壁同事大老爷们胡子一大把了居然请假过节去了。嗯，对外肯定是要怎么说的。   说起来，今天起，前门和后门都开放进出，后门不再禁止出入，那后续外出吃饭、购物倒是非常方便了，不用多绕一个多小时了。   说起来今天又被安排去做新的项目，毕竟原领导不要我们了，随便一丢，就划到其他行政去了，那么帮新朋友在做做旧工作也未必没意义。一拍手，又安排了两个新的前端项目编写。   说起来今"><meta name="keywords" content="生活,心情"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/favicon.jpg"><link rel="canonical" href="http://swmlee.com/2020/06/01/OrdinaryArticles/Essay/71FrontEndDevelopersWithWeakColors/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta property="og:type" content="article"><meta property="og:title" content="红绿色盲+色弱的前端开发者？"><meta property="og:url" content="http://swmlee.com/2020/06/01/OrdinaryArticles/Essay/71FrontEndDevelopersWithWeakColors/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="说起来今天是六一儿童节，隔壁同事大老爷们胡子一大把了居然请假过节去了。嗯，对外肯定是要怎么说的。   说起来，今天起，前门和后门都开放进出，后门不再禁止出入，那后续外出吃饭、购物倒是非常方便了，不用多绕一个多小时了。   说起来今天又被安排去做新的项目，毕竟原领导不要我们了，随便一丢，就划到其他行政去了，那么帮新朋友在做做旧工作也未必没意义。一拍手，又安排了两个新的前端项目编写。   说起来今"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-06-01T12:29:34.000Z"><meta property="article:modified_time" content="2020-08-30T14:17:22.768Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="“你要跳舞吗？”" href="http://swmlee.com/2020/06/02/OrdinaryArticles/Essay/72AreYouGoingToDance/"><link rel="next" title="2020-05-31：雨下一整天" href="http://swmlee.com/2020/05/31/OrdinaryArticles/Essay/70ItRainedAllDay/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">165</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">52</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">31</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">红绿色盲+色弱的前端开发者？</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-01 20:29:34 20:29:34"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-06-01 20:29:34</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-08-30 22:17:22 22:17:22"><i class="fas fa-history fa-fw"></i> 更新于 2020-08-30 22:17:22</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E4%B8%80%E8%88%AC%E6%96%87%E5%AD%97/">一般文字</a><i class="fas fa-angle-right post-meta__separator"></i><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E4%B8%80%E8%88%AC%E6%96%87%E5%AD%97/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/">杂文随笔</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">1.2k</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 3 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><html><head></head><body><p>  说起来今天是六一儿童节，隔壁同事大老爷们胡子一大把了居然请假过节去了。嗯，对外肯定是要怎么说的。</p>
+<p>  说起来，今天起，前门和后门都开放进出，后门不再禁止出入，那后续外出吃饭、购物倒是非常方便了，不用多绕一个多小时了。</p>
+<p>  说起来今天又被安排去做新的项目，毕竟原领导不要我们了，随便一丢，就划到其他行政去了，那么帮新朋友在做做旧工作也未必没意义。一拍手，又安排了两个新的前端项目编写。</p>
+<p>  说起来今天在看一个报错信息统计图表的折线图时，超出正常值的区域和未超出正常值的线条，颜色居然是一样的，这我就非常纳闷了。按理来说，正常范围的线条是绿色，超出的线条是红色，红绿如此大的差异，我之前应该也是分辨得清楚的。但是我还是忍不住问了一下隔壁同事，果然：“红绿分明，挺明显的啊。”那天中午，我在网上找了些自测，想起来虽然不愿意承认，但结果嘛，还真就是那样。</p>
+<p>  我第一次知道自己是色弱应该是初中二年级的时候，那时候学校有安排一次卫生院到校打疫苗，顺便就同时安排了体检。那就有一个本子，花花绿绿五颜六色的斑点，询问上面什么数字、什么图形。那个时候旁边的人跟我的说法不一致，然后有些图案根本看不出什么数字和图形，才知道，哦，原来我是色弱。为什么不是色盲呢？因为中考高考体检的时候，有检查辨色，那就是用的七色纯色图本，我倒是区分出来了的。毕竟纯粹，就是最好的。</p>
+<p>  即便大学学的软件工程，我也没有意识到这个问题有什么不足，毕竟虽然高考有些学校、有些专业的确对视力相关类目要求很多，但这都与我不相干，甚至可以自嘲：看起来这辈子都做不了好色之徒了。</p>
+<p>  不知不觉，大学毕业之后，就从事了 4 年的 web 相关开发工作。却很少在页面色彩上遇到什么难度。究其原因，一开始是单机模式，前后台一起，好不好看说到底还是我说了算。后来前后台分离了，虽然也是都要搞，框架多起来，那就是别人说了算，因为我们都自说自话，不懂审美，别人怎么弄，就怎么弄。再后来大家想做什么分布式、微服务，就经常拿着图纸去问，这是什么色，这是什么色，突然间发现，原来在我的思想世界里，这是红色、这是蓝色……别人的眼中，这是大红、朱红、嫣红、深红、水红、橘红、杏红、粉红、桃红、玫瑰红、玫瑰茜红、茜素深红、土红……这是普蓝、钴蓝、湖蓝、靛蓝、碧蓝、蔚蓝、宝蓝、藏蓝、黛蓝、孔雀蓝、天蓝、深蓝、淡蓝、瓦蓝、冰蓝、水蓝……所以我根本就不知道那是什么颜色。</p>
+<p>  但是目前为止，有影响到我的 web 开发工作了吗？其实没有。为什么呢？因为一开始，我的隔壁同事，他是正常辨色人；后来，就开始找别人的现成；再后来，最多不过是拿到电子档，自己去吸取 RGB 值……嘛，这都是后话了，其实大家还是在追求功能的完善，色彩这样的东西，很多情况下依靠布局、搭配什么的也到底没有那么刺眼了，所以说，即便红绿色盲，又是色弱的，从事 web 开发也没什么问题，毕竟，色彩什么的，只是工作的很小一部分。</p>
+<p>  说起来今天被换了行政管理权，被安排到和另一个同事，专门从事前端相关的开发工作，那之前做的中间件、后台、DB、运维什么的，都暂时不做了。哇，一心一意搞前端，看起来以前那些无所谓，似乎都有所谓了。为什么要两个人开发呢？因为没有美工、没有设计，长什么样子就是我们说了算。那我这纯色主义者，岂不是很难展开了？好吧，还有个同事，我写架构、数据交互，他负责显示、布局？</p>
+<p>  嗯，说起来，他好像也是个色弱。</p>
+<p>  真是个愉快的六一节啊，说到底，差不多是时候重返少年了。</p>
+</body></html></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2020/06/01/OrdinaryArticles/Essay/71FrontEndDevelopersWithWeakColors/">http://swmlee.com/2020/06/01/OrdinaryArticles/Essay/71FrontEndDevelopersWithWeakColors/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com" target="_blank">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a><a class="post-meta__tags" href="/tags/%E5%BF%83%E6%83%85/">心情</a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/MariaDBSeries/18mariadb-replication-example/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/06/02/OrdinaryArticles/Essay/72AreYouGoingToDance/"><img class="prev-cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">“你要跳舞吗？”</div></div></a></div><div class="next-post pull-right"><a href="/2020/05/31/OrdinaryArticles/Essay/70ItRainedAllDay/"><img class="next-cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2020-05-31：雨下一整天</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/03/01/OrdinaryArticles/Essay/16GotoHotPot/" title="突然好想吃火锅"><img class="relatedPosts_cover" data-src="https://upload-images.jianshu.io/upload_images/3998574-aa12b30029af5f5e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-01 20:49:16</div><div class="relatedPosts_title">突然好想吃火锅</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/08/OrdinaryArticles/Essay/20AnotherWomensDay/" title="又一年三八国际妇女节"><img class="relatedPosts_cover" data-src="/../images/OrdinaryArticles/Essay/20AnotherWomensDay/cover.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-08 16:55:11</div><div class="relatedPosts_title">又一年三八国际妇女节</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/08/OrdinaryArticles/Essay/21BuyTrainTicketForFather/" title="给父亲买火车票的烦杂经历"><img class="relatedPosts_cover" data-src="/../images/OrdinaryArticles/Essay/21BuyTrainTicketForFather/cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-08 10:34:52</div><div class="relatedPosts_title">给父亲买火车票的烦杂经历</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/15/OrdinaryArticles/Essay/26LiveShowWithoutLiveAudience/" title="没有现场观众的live秀"><img class="relatedPosts_cover" data-src="/../images/OrdinaryArticles/Essay/26LiveShowWithoutLiveAudience/cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-15 13:12:25</div><div class="relatedPosts_title">没有现场观众的live秀</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/09/OrdinaryArticles/Essay/22OsmanthusInHometownIsBloomingAgain/" title="吾兄阿兵，故乡的桂花又开了"><img class="relatedPosts_cover" data-src="/../images/OrdinaryArticles/Essay/22OsmanthusInHometownIsBloomingAgain/cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-09 20:29:40</div><div class="relatedPosts_title">吾兄阿兵，故乡的桂花又开了</div></div></a></div><div class="relatedPosts_item"><a href="/2020/03/11/OrdinaryArticles/Essay/23LetsPlayBBallToForgetUnhappy/" title="不开心？打场球算了吧"><img class="relatedPosts_cover" data-src="/../images/OrdinaryArticles/Essay/23LetsPlayBBallToForgetUnhappy/cover.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-11 19:55:18</div><div class="relatedPosts_title">不开心？打场球算了吧</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey: 'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder: '留个言吧 (^_^)',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'en',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/local-search.js"></script></body></html>
