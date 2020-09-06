@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>时间到了 | 知己识人</title><meta name="description" content="这是一个周六。   最近几个月，正常情况下，每个周六中午，我都会想着做到硬菜，然后在朋友圈 po 图。今天也是一个正常的周六，没闲事，没风，也没雨。   但因为昨天晚上熬夜，醒来的时候 已经 11 点半了。中午十一点半是什么概念？早上六点，就出太阳了，如果是工作日，再 20 分钟，上午就该下班了。   起来上了个厕所，洗了把脸，思想着这个点也过了往常的买菜时间点，今天就算了吧，反正昨天我也 p"><meta name="keywords" content="生活,心情"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/favicon.jpg"><link rel="canonical" href="http://swmlee.com/2020/07/18/OrdinaryArticles/Essay/97timeIsUp/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><meta property="og:type" content="article"><meta property="og:title" content="时间到了"><meta property="og:url" content="http://swmlee.com/2020/07/18/OrdinaryArticles/Essay/97timeIsUp/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="这是一个周六。   最近几个月，正常情况下，每个周六中午，我都会想着做到硬菜，然后在朋友圈 po 图。今天也是一个正常的周六，没闲事，没风，也没雨。   但因为昨天晚上熬夜，醒来的时候 已经 11 点半了。中午十一点半是什么概念？早上六点，就出太阳了，如果是工作日，再 20 分钟，上午就该下班了。   起来上了个厕所，洗了把脸，思想着这个点也过了往常的买菜时间点，今天就算了吧，反正昨天我也 p"><meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><meta property="article:published_time" content="2020-07-18T12:02:42.000Z"><meta property="article:modified_time" content="2020-09-06T14:22:59.721Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="虚无的感染力" href="http://swmlee.com/2020/07/19/OrdinaryArticles/Essay/98FalseAppeal/"><link rel="next" title="今天是我的生日" href="http://swmlee.com/2020/07/14/OrdinaryArticles/Essay/96TodayIsMyBirthday/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: false
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">194</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">59</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">32</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><span class="pull-right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 画廊</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">时间到了</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-07-18 20:02:42 20:02:42"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-07-18 20:02:42</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-09-06 22:22:59 22:22:59"><i class="fas fa-history fa-fw"></i> 更新于 2020-09-06 22:22:59</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E4%B8%80%E8%88%AC%E6%96%87%E5%AD%97/">一般文字</a><i class="fas fa-angle-right post-meta__separator"></i><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/%E4%B8%80%E8%88%AC%E6%96%87%E5%AD%97/%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94/">杂文随笔</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta__icon"></i><span>字数总计:</span><span class="word-count">923</span><span class="post-meta__separator">|</span><i class="far fa-clock fa-fw post-meta__icon"></i><span>阅读时长: 2 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><html><head></head><body><p>  这是一个周六。</p>
+<p>  最近几个月，正常情况下，每个周六中午，我都会想着做到硬菜，然后在朋友圈 po 图。今天也是一个正常的周六，没闲事，没风，也没雨。</p>
+<p>  但因为昨天晚上熬夜，醒来的时候 已经 11 点半了。中午十一点半是什么概念？早上六点，就出太阳了，如果是工作日，再 20 分钟，上午就该下班了。</p>
+<p>  起来上了个厕所，洗了把脸，思想着这个点也过了往常的买菜时间点，今天就算了吧，反正昨天我也 po 了个图，要不这周就那样吧。虽然想是这样想，但总觉得不是个滋味，总觉得心里空落落的，有些失落。于是我赶紧又躺床上，玩起了手机，就像平常一样在害怕自己多想的时候故作热闹。</p>
+<p>  没想到看着各样的视频、直播、集锦，居然已经是下午三点半了，倒也是很高兴，今天没有向往常的周六一样，吃完饭就睡觉，一睡就是晚上六七点了，时间就大大的浪费了。但中午没吃饭，没觉得饿，看起来昨天晚上那一顿还挺顶饱的。转眼想着，前两天生日没吃顿好的，等会四点去买几斤排骨补上，算是犒劳一下自己。</p>
+<p>  想也是这么想的，但是躺在床上，手机也并没有放下，尽管我都不知道在看啥，但总觉得这里翻一翻、那里点一点，时间过得还很快，不知不觉，四点都过了。我一注意到时间，遭了，已经过了四点了，该买排骨去了。但是突然想起，晚上不应该大吃大喝，不容易消化，对身体不好。反正昨天的剩饭还有，等会晚点时间，简单做个蛋炒饭就好了。于是我翻了个身，又继续点起了手机。</p>
+<p>  觉得自己好颓废啊，怎么能这么颓废呢？俗话说，人贵在有自知之明；知错能改，善莫大焉。明明如此期待在周末做些有意义的事情，学习、看书、出去玩耍，怎么能就这样子躺在床上虚度年华呢？实在不行，起来坐着玩游戏也好啊。</p>
+<p>  十分有道理，于是我终于还是起了床，上了个厕所，洗了个手，洗个把脸。看了一眼电饭锅，终于在决定再躺床上之前，还是把蛋炒饭做了。为了证明我不是颓废之人，我甚至切了一根火腿肠进去，丰富了一下蛋炒饭的内容。</p>
+<p>  饭铲入盘，锅泡上水，找好下饭视频，坐在电脑桌前，终于吃了今天的第一口食物。说起来我明明没怎么胡吃海喝，所以即便没怎么锻炼，也理应找不到更多能量来转化为脂肪的啊。可惜的是在我吃完饭之后，又吃了个面包，啃了两根香蕉，喝了瓶可乐，终究还是觉得肚子有点涨了，甚至觉得有点痛，要不把盘子和锅洗了躺穿上休息一下吧。</p>
+<p>  说起来洗碗能用得了几分钟，现在肚子有些撑，弯腰也不太方便，先躺一会儿，等会再来洗，5 分钟的事情，什么时候做不都一样呢。</p>
+<p>  躺上床之后，虽然觉得这个周六什么事情都没做，但是却也不再纠结，吃饱喝足之后，果然还是躺着最舒服，毕竟休息的时间到了。</p>
+</body></html></div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://swmlee.com/2020/07/18/OrdinaryArticles/Essay/97timeIsUp/">http://swmlee.com/2020/07/18/OrdinaryArticles/Essay/97timeIsUp/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://swmlee.com" target="_blank">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%9F%E6%B4%BB/">生活</a><a class="post-meta__tags" href="/tags/%E5%BF%83%E6%83%85/">心情</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/07/19/OrdinaryArticles/Essay/98FalseAppeal/"><img class="prev-cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">虚无的感染力</div></div></a></div><div class="next-post pull-right"><a href="/2020/07/14/OrdinaryArticles/Essay/96TodayIsMyBirthday/"><img class="next-cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">今天是我的生日</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/07/22/OrdinaryArticles/Essay/102WhyDonotYouHaveAGirlfriend/" title="关于为什么还没有女朋友这件事情"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-22 21:45:34</div><div class="relatedPosts_title">关于为什么还没有女朋友这件事情</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/22/OrdinaryArticles/Essay/103SomeThingsAreDoneForNoReason/" title="有些事情没原由就去做了"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-22 22:25:34</div><div class="relatedPosts_title">有些事情没原由就去做了</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/22/OrdinaryArticles/Essay/101UselessBeer/" title="没用的啤酒"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-22 19:48:34</div><div class="relatedPosts_title">没用的啤酒</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/27/OrdinaryArticles/Essay/106ItisAlotHarderThanBeingPutOff/" title="比被放鸽子更难过的事情"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-27 19:14:34</div><div class="relatedPosts_title">比被放鸽子更难过的事情</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/26/OrdinaryArticles/Essay/105YourInsistenceMayBeWorthless/" title="你所谓的坚持，可能一文不值"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-26 01:08:34</div><div class="relatedPosts_title">你所谓的坚持，可能一文不值</div></div></a></div><div class="relatedPosts_item"><a href="/2020/07/25/OrdinaryArticles/Essay/104AnInterestingDayStartsWithStayingUpLate/" title="有趣的一天从熬夜开始"><img class="relatedPosts_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-25 10:02:34</div><div class="relatedPosts_title">有趣的一天从熬夜开始</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var requestSetting = function (from,set) {
+  var from = from
+  var setting = set.split(',').filter(function(item){
+  return from.indexOf(item) > -1
+  });
+  setting = setting.length == 0 ? from :setting;
+  return setting
+}
+
+var guestInfo = requestSetting(['nick','mail','link'],'nick,mail,link')
+var requiredFields = requestSetting(['nick','mail'],'nick,mail')
+
+window.valine = new Valine({
+  el:'#vcomment',
+  appId: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey: 'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder: '留个言吧 (^_^)',
+  avatar: 'monsterid',
+  meta: guestInfo,
+  pageSize: '10',
+  lang: 'en',
+  recordIP: false,
+  serverURLs: '',
+  emojiCDN: '',
+  emojiMaps: "",
+  enableQQ: false,
+  requiredFields: requiredFields
+});</script></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fas fa-comments"></i></a><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/js/search/local-search.js"></script></body></html>
